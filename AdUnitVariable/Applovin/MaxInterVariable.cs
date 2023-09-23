@@ -1,6 +1,6 @@
 namespace VirtueSky.Ads
 {
-    public class ApplovinAppOpenVariable : AdUnitVariable
+    public class MaxInterVariable : AdUnitVariable
     {
         public override void Load()
         {

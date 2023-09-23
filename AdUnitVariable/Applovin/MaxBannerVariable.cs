@@ -1,6 +1,6 @@
 namespace VirtueSky.Ads
 {
-    public class ApplovinRewardVariable : AdUnitVariable
+    public class MaxBannerVariable : AdUnitVariable
     {
         public override void Load()
         {

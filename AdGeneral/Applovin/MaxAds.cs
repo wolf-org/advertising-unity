@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace VirtueSky.Ads
 {
-    public class AdmodAds : IAds
+    public class MaxAds : ScriptableObject, IAds
     {
         public void Initialize()
         {

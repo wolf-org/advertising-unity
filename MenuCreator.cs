@@ -12,7 +12,7 @@ namespace VirtueSky.Ads
         [MenuItem("GameControl/AdSetting %E", false)]
         public static void MenuOpenAdSettings()
         {
-            var adSetting = ScriptableSetting.CreateAndGetScriptableAsset<AdSetting>();
+            var adSetting = ScriptableSetting.CreateAndGetScriptableAsset<VirtueSky.Ads.AdSetting>();
             Selection.activeObject = adSetting;
             EditorUtility.FocusProjectWindow();
         }
