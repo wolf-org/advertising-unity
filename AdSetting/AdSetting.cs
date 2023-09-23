@@ -24,6 +24,8 @@ namespace VirtueSky.Ads
 
         #region AppLovin
 
+        private const string pathMax = "/Ads/Applovin";
+
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)] [Header("Applovin")] [SerializeField, TextArea]
         private string sdkKey;
 
@@ -34,7 +36,7 @@ namespace VirtueSky.Ads
 
         void CreateMaxAds()
         {
-            maxAds = ScriptableSetting.CreateAndGetScriptableAsset<MaxAds>();
+            maxAds = ScriptableSetting.CreateAndGetScriptableAsset<MaxAds>(pathMax);
         }
 
         public MaxAds MaxAds => maxAds;
@@ -50,7 +52,7 @@ namespace VirtueSky.Ads
 
         void CreateMaxBanner()
         {
-            maxBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxBannerVariable>();
+            maxBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxBannerVariable>(pathMax);
         }
 
         public MaxBannerVariable MaxBannerVariable => maxBannerVariable;
@@ -66,7 +68,7 @@ namespace VirtueSky.Ads
 
         void CreateMaxInter()
         {
-            maxInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxInterVariable>();
+            maxInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxInterVariable>(pathMax);
         }
 
         public MaxInterVariable MaxInterVariable => maxInterVariable;
@@ -82,7 +84,7 @@ namespace VirtueSky.Ads
 
         void CreateMaxReward()
         {
-            maxRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardVariable>();
+            maxRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardVariable>(pathMax);
         }
 
         public MaxRewardVariable MaxRewardVariable => maxRewardVariable;
@@ -98,7 +100,7 @@ namespace VirtueSky.Ads
 
         void CreateMaxRewardInter()
         {
-            maxRewardInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardInterVariable>();
+            maxRewardInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardInterVariable>(pathMax);
         }
 
         public MaxRewardInterVariable MaxRewardInterVariable => maxRewardInterVariable;
@@ -114,7 +116,7 @@ namespace VirtueSky.Ads
 
         void CreateMaxAppOpen()
         {
-            maxAppOpenVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxAppOpenVariable>();
+            maxAppOpenVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxAppOpenVariable>(pathMax);
         }
 
         public MaxAppOpenVariable MaxAppOpenVariable => maxAppOpenVariable;
@@ -124,6 +126,8 @@ namespace VirtueSky.Ads
         #endregion
 
         #region Admob
+
+        private const string pathAdmob = "/Ads/Admob";
 
         #region Admob Ads
 
@@ -135,7 +139,7 @@ namespace VirtueSky.Ads
 
         void CreateAdmodAds()
         {
-            admobAds = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAds>();
+            admobAds = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAds>(pathAdmob);
         }
 
         public AdmobAds AdmobAds => admobAds;
@@ -151,7 +155,7 @@ namespace VirtueSky.Ads
 
         void CreateAdmobBanner()
         {
-            admobBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobBannerVariable>();
+            admobBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobBannerVariable>(pathAdmob);
         }
 
         #endregion
@@ -163,7 +167,7 @@ namespace VirtueSky.Ads
 
         void CreateAdmobInter()
         {
-            admobInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobInterVariable>();
+            admobInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobInterVariable>(pathAdmob);
         }
 
         public AdmobInterVariable AdmobInterVariable => admobInterVariable;
@@ -179,7 +183,7 @@ namespace VirtueSky.Ads
 
         void CreateAdmobReward()
         {
-            admobRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardVariable>();
+            admobRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardVariable>(pathAdmob);
         }
 
         #endregion
@@ -193,7 +197,8 @@ namespace VirtueSky.Ads
 
         void CreateAdmobRewardInter()
         {
-            admobRewardInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardInterVariable>();
+            admobRewardInterVariable =
+                ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardInterVariable>(pathAdmob);
         }
 
         public AdmobRewardInterVariable AdmobRewardInterVariable => admobRewardInterVariable;
@@ -209,7 +214,7 @@ namespace VirtueSky.Ads
 
         void CreateAdmobAppOpen()
         {
-            admobAppOpenVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAppOpenVariable>();
+            admobAppOpenVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAppOpenVariable>(pathAdmob);
         }
 
         public AdmobAppOpenVariable AdmobAppOpenVariable => admobAppOpenVariable;
