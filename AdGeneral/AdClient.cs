@@ -5,7 +5,7 @@ using VirtueSky.EditorUtils;
 
 namespace VirtueSky.Ads
 {
-    public abstract class Ads : ScriptableObject
+    public abstract class AdClient : ScriptableObject
     {
         [SerializeField, ReadOnly] protected AdSetting adSetting;
         protected bool statusAppOpenFirstIgnore;

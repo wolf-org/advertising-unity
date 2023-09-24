@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 #if VIRTUESKY_FIREBASE_ANALYTIC
 using Firebase.Analytics;
@@ -10,7 +11,7 @@ using com.adjust.sdk;
 
 namespace VirtueSky.Ads
 {
-    public class MaxAds : Ads
+    public class MaxAdClient : AdClient
     {
         public override void Initialize()
         {

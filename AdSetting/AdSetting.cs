@@ -43,9 +43,9 @@ namespace VirtueSky.Ads
         [InlineButton(nameof(CreateMaxAds), "Create")]
 #endif
         [SerializeField]
-        private MaxAds maxAds;
+        private MaxAdClient maxAdClient;
 
-        public MaxAds MaxAds => maxAds;
+        public MaxAdClient MaxAdClient => maxAdClient;
 
         #endregion
 
@@ -124,7 +124,7 @@ namespace VirtueSky.Ads
 #if UNITY_EDITOR
         void CreateMaxAds()
         {
-            maxAds = ScriptableSetting.CreateAndGetScriptableAsset<MaxAds>(pathMax);
+            maxAdClient = ScriptableSetting.CreateAndGetScriptableAsset<MaxAdClient>(pathMax);
         }
 
         void CreateMaxBanner()
@@ -171,9 +171,9 @@ namespace VirtueSky.Ads
 #endif
 
         [SerializeField]
-        private AdmobAds admobAds;
+        private AdmobAdClient admobAdClient;
 
-        public AdmobAds AdmobAds => admobAds;
+        public AdmobAdClient AdmobAdClient => admobAdClient;
 
         #endregion
 
@@ -248,7 +248,7 @@ namespace VirtueSky.Ads
 #if UNITY_EDITOR
         void CreateAdmodAds()
         {
-            admobAds = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAds>(pathAdmob);
+            admobAdClient = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAdClient>(pathAdmob);
         }
 
         void CreateAdmobBanner()

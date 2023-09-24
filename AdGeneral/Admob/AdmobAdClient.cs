@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace VirtueSky.Ads
 {
-    public class AdmobAds : Ads
+    public class AdmobAdClient : AdClient
     {
         public override void Initialize()
         {
