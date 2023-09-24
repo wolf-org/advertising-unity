@@ -20,9 +20,11 @@ namespace VirtueSky.Ads
         public abstract void LoadAppOpen();
         public abstract bool IsAppOpenReady();
 
+#if UNITY_EDITOR
         private void Reset()
         {
             adSetting = ScriptableSetting.CreateAndGetScriptableAsset<VirtueSky.Ads.AdSetting>("/Ads");
         }
+#endif
     }
 }

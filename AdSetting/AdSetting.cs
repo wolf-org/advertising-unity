@@ -38,13 +38,12 @@ namespace VirtueSky.Ads
 
         #region Max Ads
 
-        [ShowIf(nameof(adNetwork), AdNetwork.Applovin)] [InlineButton(nameof(CreateMaxAds), "Create")] [SerializeField]
+        [ShowIf(nameof(adNetwork), AdNetwork.Applovin)]
+#if UNITY_EDITOR
+        [InlineButton(nameof(CreateMaxAds), "Create")]
+#endif
+        [SerializeField]
         private MaxAds maxAds;
-
-        void CreateMaxAds()
-        {
-            maxAds = ScriptableSetting.CreateAndGetScriptableAsset<MaxAds>(pathMax);
-        }
 
         public MaxAds MaxAds => maxAds;
 
@@ -53,14 +52,12 @@ namespace VirtueSky.Ads
         #region Max Banner
 
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateMaxBanner), "Create")]
+#endif
+
         [SerializeField]
         private MaxBannerVariable maxBannerVariable;
-
-        void CreateMaxBanner()
-        {
-            maxBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxBannerVariable>(pathMax);
-        }
 
         public MaxBannerVariable MaxBannerVariable => maxBannerVariable;
 
@@ -69,14 +66,12 @@ namespace VirtueSky.Ads
         #region Max Inter
 
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateMaxInter), "Create")]
+#endif
+
         [SerializeField]
         private MaxInterVariable maxInterVariable;
-
-        void CreateMaxInter()
-        {
-            maxInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxInterVariable>(pathMax);
-        }
 
         public MaxInterVariable MaxInterVariable => maxInterVariable;
 
@@ -85,14 +80,12 @@ namespace VirtueSky.Ads
         #region Max Reward
 
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateMaxReward), "Create")]
+#endif
+
         [SerializeField]
         private MaxRewardVariable maxRewardVariable;
-
-        void CreateMaxReward()
-        {
-            maxRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardVariable>(pathMax);
-        }
 
         public MaxRewardVariable MaxRewardVariable => maxRewardVariable;
 
@@ -101,14 +94,12 @@ namespace VirtueSky.Ads
         #region Max RewardInter
 
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateMaxRewardInter), "Create")]
+#endif
+
         [SerializeField]
         private MaxRewardInterVariable maxRewardInterVariable;
-
-        void CreateMaxRewardInter()
-        {
-            maxRewardInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardInterVariable>(pathMax);
-        }
 
         public MaxRewardInterVariable MaxRewardInterVariable => maxRewardInterVariable;
 
@@ -117,16 +108,51 @@ namespace VirtueSky.Ads
         #region Max AppOpen
 
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateMaxAppOpen), "Create")]
+#endif
+
         [SerializeField]
         private MaxAppOpenVariable maxAppOpenVariable;
+
+        public MaxAppOpenVariable MaxAppOpenVariable => maxAppOpenVariable;
+
+        #endregion
+
+        #region Func Create Max Variable
+
+#if UNITY_EDITOR
+        void CreateMaxAds()
+        {
+            maxAds = ScriptableSetting.CreateAndGetScriptableAsset<MaxAds>(pathMax);
+        }
+
+        void CreateMaxBanner()
+        {
+            maxBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxBannerVariable>(pathMax);
+        }
+
+        void CreateMaxInter()
+        {
+            maxInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxInterVariable>(pathMax);
+        }
+
+        void CreateMaxReward()
+        {
+            maxRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardVariable>(pathMax);
+        }
+
+        void CreateMaxRewardInter()
+        {
+            maxRewardInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxRewardInterVariable>(pathMax);
+        }
 
         void CreateMaxAppOpen()
         {
             maxAppOpenVariable = ScriptableSetting.CreateAndGetScriptableAsset<MaxAppOpenVariable>(pathMax);
         }
 
-        public MaxAppOpenVariable MaxAppOpenVariable => maxAppOpenVariable;
+#endif
 
         #endregion
 
@@ -140,14 +166,12 @@ namespace VirtueSky.Ads
 
         [ShowIf(nameof(adNetwork), AdNetwork.Admob)]
         [Header("Admob")]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateAdmodAds), "Create")]
+#endif
+
         [SerializeField]
         private AdmobAds admobAds;
-
-        void CreateAdmodAds()
-        {
-            admobAds = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAds>(pathAdmob);
-        }
 
         public AdmobAds AdmobAds => admobAds;
 
@@ -156,26 +180,24 @@ namespace VirtueSky.Ads
         #region Admod Banner
 
         [ShowIf(nameof(adNetwork), AdNetwork.Admob)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateAdmobBanner), "Create")]
+#endif
+
         [SerializeField]
         private AdmobBannerVariable admobBannerVariable;
-
-        void CreateAdmobBanner()
-        {
-            admobBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobBannerVariable>(pathAdmob);
-        }
 
         #endregion
 
         #region Admod Inter
 
-        [ShowIf(nameof(adNetwork), AdNetwork.Admob)] [InlineButton(nameof(CreateAdmobInter), "Create")] [SerializeField]
-        private AdmobInterVariable admobInterVariable;
+        [ShowIf(nameof(adNetwork), AdNetwork.Admob)]
+#if UNITY_EDITOR
+        [InlineButton(nameof(CreateAdmobInter), "Create")]
+#endif
 
-        void CreateAdmobInter()
-        {
-            admobInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobInterVariable>(pathAdmob);
-        }
+        [SerializeField]
+        private AdmobInterVariable admobInterVariable;
 
         public AdmobInterVariable AdmobInterVariable => admobInterVariable;
 
@@ -184,29 +206,24 @@ namespace VirtueSky.Ads
         #region Admod Reward
 
         [ShowIf(nameof(adNetwork), AdNetwork.Admob)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateAdmobReward), "Create")]
+#endif
+
         [SerializeField]
         private AdmobRewardVariable admobRewardVariable;
-
-        void CreateAdmobReward()
-        {
-            admobRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardVariable>(pathAdmob);
-        }
 
         #endregion
 
         #region Admod RewardInter
 
         [ShowIf(nameof(adNetwork), AdNetwork.Admob)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateAdmobRewardInter), "Create")]
+#endif
+
         [SerializeField]
         private AdmobRewardInterVariable admobRewardInterVariable;
-
-        void CreateAdmobRewardInter()
-        {
-            admobRewardInterVariable =
-                ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardInterVariable>(pathAdmob);
-        }
 
         public AdmobRewardInterVariable AdmobRewardInterVariable => admobRewardInterVariable;
 
@@ -215,16 +232,51 @@ namespace VirtueSky.Ads
         #region Admod AppOpen
 
         [ShowIf(nameof(adNetwork), AdNetwork.Admob)]
+#if UNITY_EDITOR
         [InlineButton(nameof(CreateAdmobAppOpen), "Create")]
+#endif
+
         [SerializeField]
         private AdmobAppOpenVariable admobAppOpenVariable;
+
+        public AdmobAppOpenVariable AdmobAppOpenVariable => admobAppOpenVariable;
+
+        #endregion
+
+        #region Func Create Admob Variable
+
+#if UNITY_EDITOR
+        void CreateAdmodAds()
+        {
+            admobAds = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAds>(pathAdmob);
+        }
+
+        void CreateAdmobBanner()
+        {
+            admobBannerVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobBannerVariable>(pathAdmob);
+        }
+
+        void CreateAdmobInter()
+        {
+            admobInterVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobInterVariable>(pathAdmob);
+        }
 
         void CreateAdmobAppOpen()
         {
             admobAppOpenVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobAppOpenVariable>(pathAdmob);
         }
 
-        public AdmobAppOpenVariable AdmobAppOpenVariable => admobAppOpenVariable;
+        void CreateAdmobRewardInter()
+        {
+            admobRewardInterVariable =
+                ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardInterVariable>(pathAdmob);
+        }
+
+        void CreateAdmobReward()
+        {
+            admobRewardVariable = ScriptableSetting.CreateAndGetScriptableAsset<AdmobRewardVariable>(pathAdmob);
+        }
+#endif
 
         #endregion
 

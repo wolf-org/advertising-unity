@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using VirtueSky.EditorUtils;
 
@@ -14,3 +15,4 @@ namespace VirtueSky.Ads
         }
     }
 }
+#endif
