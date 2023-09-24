@@ -1,52 +1,122 @@
-using UnityEngine;
+using System;
+
+#if VIRTUESKY_FIREBASE_ANALYTIC
+using Firebase.Analytics;
+#endif
+
+#if VIRTUESKY_ADJUST
+using com.adjust.sdk;
+#endif
 
 namespace VirtueSky.Ads
 {
-    public class MaxAds : ScriptableObject, IAds
+    public class MaxAds : Ads
     {
-        public void Initialize()
+        public override void Initialize()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            MaxSdk.SetSdkKey(adSetting.SdkKey);
+            MaxSdk.InitializeSdk();
+            MaxSdk.SetIsAgeRestrictedUser(adSetting.ApplovinEnableAgeRestrictedUser);
+            adSetting.MaxBannerVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxInterVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxRewardVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxRewardInterVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxAppOpenVariable.paidedCallback = TrackRevenue;
+            LoadInterstitial();
+            LoadRewarded();
+            LoadRewardedInterstitial();
+            LoadAppOpen();
+#endif
         }
 
-        public void LoadInterstitial()
+        public override void LoadInterstitial()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (!IsInterstitialReady()) adSetting.MaxInterVariable.Load();
+#endif
         }
 
-        public bool IsInterstitialReady()
+        public override bool IsInterstitialReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            return adSetting.MaxInterVariable.IsReady();
+#else
+            return false;
+#endif
         }
 
-        public void LoadRewarded()
+        public override void LoadRewarded()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (!IsRewardedReady()) adSetting.MaxRewardVariable.Load();
+#endif
         }
 
-        public bool IsRewardedReady()
+        public override bool IsRewardedReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            return adSetting.MaxRewardVariable.IsReady();
+#else
+            return false;
+#endif
         }
 
-        public void LoadRewardedInterstitial()
+        public override void LoadRewardedInterstitial()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (!IsRewardedInterstitialReady()) adSetting.MaxRewardInterVariable.Load();
+#endif
         }
 
-        public bool IsRewardedInterstitialReady()
+        public override bool IsRewardedInterstitialReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            return adSetting.MaxRewardInterVariable.IsReady();
+#else
+            return false;
+#endif
         }
 
-        public void LoadAppOpen()
+        public override void LoadAppOpen()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (!IsAppOpenReady()) adSetting.MaxAppOpenVariable.Load();
+#endif
         }
 
-        public bool IsAppOpenReady()
+        public override bool IsAppOpenReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            return adSetting.MaxAppOpenVariable.IsReady();
+#else
+            return false;
+#endif
+        }
+
+        void TrackRevenue(double value, string network, string unitId, string format)
+        {
+#if VIRTUESKY_ADJUST
+            AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue(AdjustConfig.AdjustAdRevenueSourceAppLovinMAX);
+            adjustAdRevenue.setRevenue(value, "USD");
+            adjustAdRevenue.setAdRevenueNetwork(network);
+            adjustAdRevenue.setAdRevenueUnit(unitId);
+            adjustAdRevenue.setAdRevenuePlacement(format);
+            Adjust.trackAdRevenue(adjustAdRevenue);
+#endif
+#if VIRTUESKY_FIREBASE_ANALYTIC
+            Parameter[] parameters =
+            {
+                new("value", value),
+                new("ad_platform", "AppLovin"),
+                new("ad_format", format),
+                new("currency", "USD"),
+                new("ad_unit_name", unitId),
+                new("ad_source", network)
+            };
+
+            FirebaseAnalytics.LogEvent("ad_impression", parameters);
+#endif
         }
     }
 }

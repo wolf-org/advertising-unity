@@ -29,6 +29,13 @@ namespace VirtueSky.Ads
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)] [Header("Applovin")] [SerializeField, TextArea]
         private string sdkKey;
 
+        public string SdkKey => sdkKey;
+
+        [ShowIf(nameof(adNetwork), AdNetwork.Applovin)] [SerializeField]
+        private bool applovinEnableAgeRestrictedUser;
+
+        public bool ApplovinEnableAgeRestrictedUser => applovinEnableAgeRestrictedUser;
+
         #region Max Ads
 
         [ShowIf(nameof(adNetwork), AdNetwork.Applovin)] [InlineButton(nameof(CreateMaxAds), "Create")] [SerializeField]

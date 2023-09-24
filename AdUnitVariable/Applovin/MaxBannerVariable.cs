@@ -1,25 +1,94 @@
+using System;
+using VirtueSky.Misc;
+
 namespace VirtueSky.Ads
 {
+    [Serializable]
     public class MaxBannerVariable : AdUnitVariable
     {
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+        public MaxSdkBase.BannerPosition position;
+#endif
+        private bool isBannerDestroyed = true;
+        private bool registerCallback;
+
         public override void Load()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
+            if (!registerCallback)
+            {
+                MaxSdkCallbacks.Banner.OnAdLoadedEvent += OnAdLoaded;
+                MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnAdExpanded;
+                MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += OnAdLoadFailed;
+                MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnAdCollapsed;
+                MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaid;
+                registerCallback = true;
+            }
+
+            if (isBannerDestroyed)
+            {
+                MaxSdk.CreateBanner(Id, position);
+            }
+#endif
         }
 
         public override bool IsReady()
         {
-            throw new System.NotImplementedException();
+            return !string.IsNullOrEmpty(Id);
         }
 
         protected override void ShowImpl()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            Load();
+            MaxSdk.ShowBanner(Id);
+#endif
         }
 
         public override void Destroy()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (string.IsNullOrEmpty(Id)) return;
+            isBannerDestroyed = true;
+            MaxSdk.DestroyBanner(Id);
+#endif
         }
+
+        #region Fun Callback
+
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+        private void OnAdRevenuePaid(string unit, MaxSdkBase.AdInfo info)
+        {
+            paidedCallback?.Invoke(info.Revenue,
+                info.NetworkName,
+                unit,
+                info.AdFormat);
+        }
+
+        private void OnAdLoaded(string unit, MaxSdkBase.AdInfo info)
+        {
+            Common.CallActionAndClean(ref loadedCallback);
+        }
+
+        private void OnAdExpanded(string unit, MaxSdkBase.AdInfo info)
+        {
+            Common.CallActionAndClean(ref displayedCallback);
+        }
+
+        private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
+        {
+            Common.CallActionAndClean(ref failedToLoadCallback);
+        }
+
+        private void OnAdCollapsed(string unit, MaxSdkBase.AdInfo info)
+        {
+            Common.CallActionAndClean(ref closedCallback);
+        }
+
+
+#endif
+
+        #endregion
     }
 }

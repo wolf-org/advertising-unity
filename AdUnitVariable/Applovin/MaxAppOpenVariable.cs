@@ -1,25 +1,90 @@
+using System;
+using VirtueSky.Misc;
+
 namespace VirtueSky.Ads
 {
     public class MaxAppOpenVariable : AdUnitVariable
     {
+        private bool registerCallback;
+
         public override void Load()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
+            if (!registerCallback)
+            {
+                MaxSdkCallbacks.AppOpen.OnAdDisplayedEvent += OnAdDisplayed;
+                MaxSdkCallbacks.AppOpen.OnAdHiddenEvent += OnAdHidden;
+                MaxSdkCallbacks.AppOpen.OnAdLoadedEvent += OnAdLoaded;
+                MaxSdkCallbacks.AppOpen.OnAdDisplayFailedEvent += OnAdDisplayFailed;
+                MaxSdkCallbacks.AppOpen.OnAdLoadFailedEvent += OnAdLoadFailed;
+                MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent += OnAdRevenuePaid;
+                registerCallback = true;
+            }
+#endif
         }
 
         public override bool IsReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            return !string.IsNullOrEmpty(Id) && MaxSdk.IsAppOpenAdReady(Id);
+#else
+            return false;
+#endif
         }
 
         protected override void ShowImpl()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            MaxSdk.LoadAppOpenAd(Id);
+#endif
         }
 
         public override void Destroy()
         {
-            throw new System.NotImplementedException();
         }
+
+        #region Func Callback
+
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+        private void OnAdLoaded(string unit, MaxSdkBase.AdInfo info)
+        {
+            Common.CallActionAndClean(ref loadedCallback);
+        }
+
+        private void OnAdRevenuePaid(string unit, MaxSdkBase.AdInfo info)
+        {
+            paidedCallback?.Invoke(info.Revenue,
+                info.NetworkName,
+                unit,
+                info.AdFormat);
+        }
+
+        private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
+        {
+            Common.CallActionAndClean(ref failedToLoadCallback);
+        }
+
+        private void OnAdDisplayFailed(string unit, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo info)
+        {
+            Common.CallActionAndClean(ref failedToDisplayCallback);
+        }
+
+        private void OnAdHidden(string unit, MaxSdkBase.AdInfo info)
+        {
+            AdStatic.isShowingAd = false;
+            Common.CallActionAndClean(ref closedCallback);
+
+            if (!string.IsNullOrEmpty(Id)) MaxSdk.LoadAppOpenAd(Id);
+        }
+
+        private void OnAdDisplayed(string unit, MaxSdkBase.AdInfo info)
+        {
+            AdStatic.isShowingAd = true;
+            Common.CallActionAndClean(ref displayedCallback);
+        }
+#endif
+
+        #endregion
     }
 }

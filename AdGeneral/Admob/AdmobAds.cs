@@ -2,49 +2,49 @@ using UnityEngine;
 
 namespace VirtueSky.Ads
 {
-    public class AdmobAds : ScriptableObject, IAds
+    public class AdmobAds : Ads
     {
-        public void Initialize()
+        public override void Initialize()
         {
             throw new System.NotImplementedException();
         }
 
-        public void LoadInterstitial()
+        public override void LoadInterstitial()
         {
             throw new System.NotImplementedException();
         }
 
-        public bool IsInterstitialReady()
+        public override bool IsInterstitialReady()
         {
             throw new System.NotImplementedException();
         }
 
-        public void LoadRewarded()
+        public override void LoadRewarded()
         {
             throw new System.NotImplementedException();
         }
 
-        public bool IsRewardedReady()
+        public override bool IsRewardedReady()
         {
             throw new System.NotImplementedException();
         }
 
-        public void LoadRewardedInterstitial()
+        public override void LoadRewardedInterstitial()
         {
             throw new System.NotImplementedException();
         }
 
-        public bool IsRewardedInterstitialReady()
+        public override bool IsRewardedInterstitialReady()
         {
             throw new System.NotImplementedException();
         }
 
-        public void LoadAppOpen()
+        public override void LoadAppOpen()
         {
             throw new System.NotImplementedException();
         }
 
-        public bool IsAppOpenReady()
+        public override bool IsAppOpenReady()
         {
             throw new System.NotImplementedException();
         }

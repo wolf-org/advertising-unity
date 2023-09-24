@@ -10,5 +10,7 @@ namespace VirtueSky.Ads
             get => GameData.Get($"{Application.identifier}_removeads", false);
             set => GameData.Set($"{Application.identifier}_removeads", value);
         }
+
+        internal static bool isShowingAd;
     }
 }
