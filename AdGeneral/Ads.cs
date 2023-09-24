@@ -1,5 +1,7 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using VirtueSky.EditorUtils;
 
 namespace VirtueSky.Ads
 {
@@ -7,11 +9,6 @@ namespace VirtueSky.Ads
     {
         [SerializeField, ReadOnly] protected AdSetting adSetting;
         protected bool statusAppOpenFirstIgnore;
-
-        public void SetupAdSetting(AdSetting _adSetting)
-        {
-            this.adSetting = _adSetting;
-        }
 
         public abstract void Initialize();
         public abstract void LoadInterstitial();
@@ -22,5 +19,10 @@ namespace VirtueSky.Ads
         public abstract bool IsRewardedInterstitialReady();
         public abstract void LoadAppOpen();
         public abstract bool IsAppOpenReady();
+
+        private void Reset()
+        {
+            adSetting = ScriptableSetting.CreateAndGetScriptableAsset<VirtueSky.Ads.AdSetting>("/Ads");
+        }
     }
 }
