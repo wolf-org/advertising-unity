@@ -10,20 +10,20 @@ namespace VirtueSky.Ads
         public MaxSdkBase.BannerPosition position;
 #endif
         private bool isBannerDestroyed = true;
-        private bool registerCallback;
+        private bool _registerCallback = false;
 
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
-            if (!registerCallback)
+            if (!_registerCallback)
             {
                 MaxSdkCallbacks.Banner.OnAdLoadedEvent += OnAdLoaded;
                 MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnAdExpanded;
                 MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += OnAdLoadFailed;
                 MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnAdCollapsed;
                 MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaid;
-                registerCallback = true;
+                _registerCallback = true;
             }
 
             if (isBannerDestroyed)

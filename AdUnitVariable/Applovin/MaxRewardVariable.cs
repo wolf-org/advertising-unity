@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
@@ -9,15 +10,16 @@ namespace VirtueSky.Ads
         [NonSerialized] internal Action completedCallback;
         [NonSerialized] internal Action skippedCallback;
 
-        private bool registerCallback;
+        private bool _registerCallback = false;
         public bool IsEarnRewarded { get; private set; }
 
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
             if (string.IsNullOrEmpty(Id)) return;
-            if (!registerCallback)
+            if (!_registerCallback)
             {
+                Debug.Log("load callback reward");
                 MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += OnAdDisplayed;
                 MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnAdHidden;
                 MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnAdLoaded;
@@ -25,7 +27,7 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += OnAdLoadFailed;
                 MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaid;
                 MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnAdReceivedReward;
-                registerCallback = true;
+                _registerCallback = true;
             }
 
             MaxSdk.LoadRewardedAd(Id);

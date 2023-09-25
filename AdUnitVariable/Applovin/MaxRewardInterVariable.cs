@@ -8,7 +8,7 @@ namespace VirtueSky.Ads
         [NonSerialized] internal Action completedCallback;
         [NonSerialized] internal Action skippedCallback;
 
-        private bool _registerCallback;
+        private bool _registerCallback = false;
         public bool IsEarnRewarded { get; private set; }
 
         public override bool IsReady()

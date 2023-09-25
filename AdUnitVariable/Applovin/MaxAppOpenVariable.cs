@@ -5,13 +5,13 @@ namespace VirtueSky.Ads
 {
     public class MaxAppOpenVariable : AdUnitVariable
     {
-        private bool registerCallback;
+        private bool _registerCallback = false;
 
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
-            if (!registerCallback)
+            if (!_registerCallback)
             {
                 MaxSdkCallbacks.AppOpen.OnAdDisplayedEvent += OnAdDisplayed;
                 MaxSdkCallbacks.AppOpen.OnAdHiddenEvent += OnAdHidden;
@@ -19,7 +19,7 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.AppOpen.OnAdDisplayFailedEvent += OnAdDisplayFailed;
                 MaxSdkCallbacks.AppOpen.OnAdLoadFailedEvent += OnAdLoadFailed;
                 MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent += OnAdRevenuePaid;
-                registerCallback = true;
+                _registerCallback = true;
             }
 #endif
         }

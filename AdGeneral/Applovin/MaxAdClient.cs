@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-
 #if VIRTUESKY_FIREBASE_ANALYTIC
 using Firebase.Analytics;
 #endif

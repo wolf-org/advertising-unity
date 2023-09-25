@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
@@ -7,13 +8,13 @@ namespace VirtueSky.Ads
     public class MaxInterVariable : AdUnitVariable
     {
         [NonSerialized] internal Action completedCallback;
-        private bool registerCallback;
+        private bool _registerCallback = false;
 
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
-            if (!registerCallback)
+            if (!_registerCallback)
             {
                 MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnAdLoaded;
                 MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnAdLoadFailed;
@@ -21,7 +22,7 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += OnAdDisplayed;
                 MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnAdHidden;
                 MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnAdDisplayFailed;
-                registerCallback = true;
+                _registerCallback = true;
             }
 
             MaxSdk.LoadInterstitial(Id);
