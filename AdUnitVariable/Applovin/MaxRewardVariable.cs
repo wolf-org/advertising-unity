@@ -13,13 +13,17 @@ namespace VirtueSky.Ads
         private bool _registerCallback = false;
         public bool IsEarnRewarded { get; private set; }
 
+        public override void Init()
+        {
+            _registerCallback = false;
+        }
+
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
             if (string.IsNullOrEmpty(Id)) return;
             if (!_registerCallback)
             {
-                Debug.Log("load callback reward");
                 MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += OnAdDisplayed;
                 MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnAdHidden;
                 MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnAdLoaded;

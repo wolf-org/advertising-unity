@@ -2,6 +2,11 @@ namespace VirtueSky.Ads
 {
     public class AdmobBannerVariable : AdUnitVariable
     {
+        public override void Init()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void Load()
         {
             throw new System.NotImplementedException();

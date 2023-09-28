@@ -14,18 +14,32 @@ namespace VirtueSky.Ads
         public override void Initialize()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
+            adSetting.MaxBannerVariable.Init();
+            adSetting.MaxInterVariable.Init();
+            adSetting.MaxRewardVariable.Init();
+            adSetting.MaxAppOpenVariable.Init();
+            adSetting.MaxRewardInterVariable.Init();
+            
+            if (!MaxSdk.IsInitialized())
+            {
+                MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
+                {
+                    adSetting.MaxBannerVariable.paidedCallback = TrackRevenue;
+                    adSetting.MaxInterVariable.paidedCallback = TrackRevenue;
+                    adSetting.MaxRewardVariable.paidedCallback = TrackRevenue;
+                    adSetting.MaxRewardInterVariable.paidedCallback = TrackRevenue;
+                    adSetting.MaxAppOpenVariable.paidedCallback = TrackRevenue;
+                    LoadInterstitial();
+                    LoadRewarded();
+                    LoadRewardedInterstitial();
+                    LoadAppOpen();
+                };
+            }
             MaxSdk.SetSdkKey(adSetting.SdkKey);
             MaxSdk.InitializeSdk();
             MaxSdk.SetIsAgeRestrictedUser(adSetting.ApplovinEnableAgeRestrictedUser);
-            adSetting.MaxBannerVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxInterVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxRewardVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxRewardInterVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxAppOpenVariable.paidedCallback = TrackRevenue;
-            LoadInterstitial();
-            LoadRewarded();
-            LoadRewardedInterstitial();
-            LoadAppOpen();
+            
+            
 #endif
         }
 

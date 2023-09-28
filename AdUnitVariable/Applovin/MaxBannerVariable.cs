@@ -12,6 +12,11 @@ namespace VirtueSky.Ads
         private bool isBannerDestroyed = true;
         private bool _registerCallback = false;
 
+        public override void Init()
+        {
+            _registerCallback = false;
+        }
+
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN

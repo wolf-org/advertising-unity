@@ -10,6 +10,11 @@ namespace VirtueSky.Ads
         [NonSerialized] internal Action completedCallback;
         private bool _registerCallback = false;
 
+        public override void Init()
+        {
+            _registerCallback = false;
+        }
+
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
@@ -24,7 +29,7 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnAdDisplayFailed;
                 _registerCallback = true;
             }
-
+            
             MaxSdk.LoadInterstitial(Id);
 #endif
         }

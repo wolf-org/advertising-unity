@@ -7,6 +7,11 @@ namespace VirtueSky.Ads
     {
         private bool _registerCallback = false;
 
+        public override void Init()
+        {
+            _registerCallback = false;
+        }
+
         public override void Load()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN

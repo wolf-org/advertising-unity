@@ -32,6 +32,8 @@ namespace VirtueSky.Ads
             }
         }
 
+        public abstract void Init();
+
         public abstract void Load();
 
         public abstract bool IsReady();
