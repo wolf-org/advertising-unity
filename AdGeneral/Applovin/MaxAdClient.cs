@@ -14,16 +14,19 @@ namespace VirtueSky.Ads
         public override void Initialize()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
+            MaxSdk.SetSdkKey(adSetting.SdkKey);
+            MaxSdk.InitializeSdk();
+            MaxSdk.SetIsAgeRestrictedUser(adSetting.ApplovinEnableAgeRestrictedUser);
             adSetting.MaxBannerVariable.Init();
             adSetting.MaxInterVariable.Init();
             adSetting.MaxRewardVariable.Init();
             adSetting.MaxAppOpenVariable.Init();
             adSetting.MaxRewardInterVariable.Init();
             
-            if (!MaxSdk.IsInitialized())
-            {
-                MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
-                {
+           // if (!MaxSdk.IsInitialized())
+           // {
+              //  MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
+              //  {
                     adSetting.MaxBannerVariable.paidedCallback = TrackRevenue;
                     adSetting.MaxInterVariable.paidedCallback = TrackRevenue;
                     adSetting.MaxRewardVariable.paidedCallback = TrackRevenue;
@@ -33,11 +36,10 @@ namespace VirtueSky.Ads
                     LoadRewarded();
                     LoadRewardedInterstitial();
                     LoadAppOpen();
-                };
-            }
-            MaxSdk.SetSdkKey(adSetting.SdkKey);
-            MaxSdk.InitializeSdk();
-            MaxSdk.SetIsAgeRestrictedUser(adSetting.ApplovinEnableAgeRestrictedUser);
+                    Debug.Log("max Initialized");
+              //  };
+           // }
+            
             
             
 #endif
