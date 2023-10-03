@@ -9,6 +9,7 @@
 
     ![OpenAdsetting](https://github.com/wolf-package/advertising/assets/126542083/fc1d053d-56cc-4126-a6db-6cf03a2a6b46)
 - You can choose Ad Network Applovin for Admob and click `Create` button to create AdUnitiVariable
+  
     ![Adsetting](https://github.com/wolf-package/advertising/assets/126542083/d5026c44-61bd-4c29-a6de-e2d84003d24e)
 
 - Set id for AdUnitVariable
@@ -16,12 +17,14 @@
     ![AdVariable](https://github.com/wolf-package/advertising/assets/126542083/f351e91d-9542-424b-89ff-25f6afa7ccec)
 
     (For Admob, you can get the test Id by going to `Context Menu` and selecting `Get Id Test`)
-      ![idtest](https://github.com/wolf-package/advertising/assets/126542083/7ec8241b-5449-478d-be61-40eb38e53334)
+  
+    ![idtest](https://github.com/wolf-package/advertising/assets/126542083/7ec8241b-5449-478d-be61-40eb38e53334)
 
 - Attach `Advertising` to the object in the scene (loading scene) to load the ad
+  
     ![Adsvertising](https://github.com/wolf-package/advertising/assets/126542083/47b53d5a-a65f-41be-b2f9-8e06cd09cb77)
 
-- Script demo show ads
+- Script show ads (demo)
   
 ```
 using System.Collections;
@@ -30,7 +33,7 @@ using TMPro;
 using UnityEngine;
 using VirtueSky.Ads;
 
-public class ADs : MonoBehaviour
+public class AdsManager : MonoBehaviour
 {
     public TextMeshProUGUI textNoti;
     public AdUnitVariable banner;
