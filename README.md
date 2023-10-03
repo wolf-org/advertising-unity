@@ -24,6 +24,10 @@
   
     ![Adsvertising](https://github.com/wolf-package/advertising/assets/126542083/47b53d5a-a65f-41be-b2f9-8e06cd09cb77)
 
+- Import `Scripting Define Symbols`
+    -   For Applovin: `VIRTUESKY_ADS` and `ADS_APPLOVIN`
+    -   For Admob: `VIRTUESKY_ADS` and `ADS_ADMOB`
+
 - Script show ads (demo)
   
 ```
