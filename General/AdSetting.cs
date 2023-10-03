@@ -7,12 +7,12 @@ namespace VirtueSky.Ads
 {
     public class AdSetting : ScriptableObject
     {
-        [SerializeField] private bool autoInit = true;
+        // [SerializeField] private bool autoInit = true;
         [Range(5, 100), SerializeField] private float adCheckingInterval = 8f;
         [Range(5, 100), SerializeField] private float adLoadingInterval = 15f;
         [SerializeField] private AdNetwork adNetwork = AdNetwork.Applovin;
 
-        public bool AutoInit => autoInit;
+        //  public bool AutoInit => autoInit;
         public float AdCheckingInterval => adCheckingInterval;
         public float AdLoadingInterval => adLoadingInterval;
 

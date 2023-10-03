@@ -1,12 +1,8 @@
-## How To Install
+## Advertising for unity
+(Supports applovin 5.11.3 and google admob 8.5.2)
+- built on scriptableobject architecture, you need to install [Sunflower](https://github.com/VirtueSky/sunflower) to use
 
-### Add the lines below to `Packages/manifest.json`
-
-for version `1.0.0`
-```csharp
-"com.virtuesky.advertising":"https://github.com/wolf-package/advertising.git#1.0.0",
-```
-dependency `sunflower-1.1.5`
-```csharp
-"com.virtuesky.sunflower": "https://github.com/VirtueSky/sunflower.git#1.1.5",
-```
+# Use
+- After installation, open Adsetting to set up AdUnit Id
+(Ctrl + E or GameControl -> adSetting to open Adsetting)
+- You can choose Ad Network Applovin for Admob
