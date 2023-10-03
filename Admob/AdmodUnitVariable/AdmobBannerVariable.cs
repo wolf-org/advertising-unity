@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using GoogleMobileAds.Api;
 using UnityEngine;
+using VirtueSky.Ads;
 using VirtueSky.Global;
 using VirtueSky.Misc;
 

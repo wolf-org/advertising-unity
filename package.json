@@ -1,8 +1,8 @@
 {
-  "name": "com.virtuesky._package_name_",
-  "displayName": "__Package_Name__",
-  "description": "__Package_Description__",
-  "version": "x.x.x",
+  "name": "com.virtuesky.advertising",
+  "displayName": "Advertising",
+  "description": "Advertising for unity",
+  "version": "1.0.0",
   "unity": "2021.3",
   "category": "virtuesky",
   "author": {
@@ -11,6 +11,12 @@
     "url": "https://github.com/VirtueSky"
   },
   "keywords": [
+    "Advertising",
+    "Unity",
+    "Advertising for unity",
+    "Ads"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "com.virtuesky.sunflower": "https://github.com/VirtueSky/sunflower.git#1.1.5"
+  }
 }

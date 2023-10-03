@@ -1,5 +1,5 @@
 using System;
-using UnityEngine;
+using VirtueSky.Ads;
 using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
@@ -29,7 +29,7 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnAdDisplayFailed;
                 _registerCallback = true;
             }
-            
+
             MaxSdk.LoadInterstitial(Id);
 #endif
         }

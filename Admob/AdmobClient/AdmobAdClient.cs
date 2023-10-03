@@ -1,6 +1,7 @@
 using System;
 using GoogleMobileAds.Api;
 using UnityEngine;
+using VirtueSky.Ads;
 using VirtueSky.Global;
 #if VIRTUESKY_FIREBASE_ANALYTIC
 using Firebase.Analytics;

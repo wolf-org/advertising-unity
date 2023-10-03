@@ -1,0 +1,22 @@
+{
+    "name": "virtuesky.ads",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a4cfc1a18fa3a469b96d885db522f42e",
+        "GUID:9290e2823bed84cbf86be0b95066e1d7",
+        "GUID:cbb42e4cfd9484f52972c8f05e1c3252"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "ADS_APPLOVIN",
+        "ADS_ADMOB",
+        "ADS_APPLOVIN"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

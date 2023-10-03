@@ -1,4 +1,5 @@
 using UnityEngine;
+using VirtueSky.Ads;
 #if VIRTUESKY_FIREBASE_ANALYTIC
 using Firebase.Analytics;
 #endif

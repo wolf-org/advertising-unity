@@ -1,6 +1,7 @@
 using System;
 using GoogleMobileAds.Api;
 using UnityEngine;
+using VirtueSky.Ads;
 using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
