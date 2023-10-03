@@ -12,7 +12,7 @@ namespace VirtueSky.Ads
     {
 #if VIRTUESKY_ADS && ADS_ADMOB
         public AdPosition bannerPosition;
-        public AdSize bannerSize;
+        public AdSize bannerSize = AdSize.Banner;
         private BannerView _bannerView;
 #endif
 
@@ -25,11 +25,8 @@ namespace VirtueSky.Ads
 
         public override void Load()
         {
-            Debug.Log("1 load admob banner " + Id);
 #if VIRTUESKY_ADS && ADS_ADMOB
-            Debug.Log("load admob banner " + Id);
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
-
             Destroy();
             _bannerView = new BannerView(Id, bannerSize, bannerPosition);
             _bannerView.OnAdFullScreenContentClosed += OnAdClosed;
@@ -45,7 +42,6 @@ namespace VirtueSky.Ads
         public override bool IsReady()
         {
 #if VIRTUESKY_ADS && ADS_ADMOB
-            Debug.Log("banner is ready: " + _bannerView);
             return _bannerView != null;
 #else
             return false;
