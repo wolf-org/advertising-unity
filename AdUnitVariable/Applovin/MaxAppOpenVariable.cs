@@ -3,6 +3,7 @@ using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {
+    [Serializable]
     public class MaxAppOpenVariable : AdUnitVariable
     {
         private bool _registerCallback = false;

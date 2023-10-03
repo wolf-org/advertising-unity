@@ -37,7 +37,6 @@ namespace VirtueSky.Ads
         public override bool IsReady()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
-            Debug.Log(MaxSdk.IsInterstitialReady(Id) + " is ready inter / " + Id);
             return !string.IsNullOrEmpty(Id) && MaxSdk.IsInterstitialReady(Id);
 #else
             return false;

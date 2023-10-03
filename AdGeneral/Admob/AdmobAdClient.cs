@@ -1,4 +1,14 @@
+using System;
+using GoogleMobileAds.Api;
 using UnityEngine;
+using VirtueSky.Global;
+#if VIRTUESKY_FIREBASE_ANALYTIC
+using Firebase.Analytics;
+#endif
+
+#if VIRTUESKY_ADJUST
+using com.adjust.sdk;
+#endif
 
 namespace VirtueSky.Ads
 {
@@ -6,47 +16,138 @@ namespace VirtueSky.Ads
     {
         public override void Initialize()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            MobileAds.Initialize(_ =>
+            {
+                App.RunOnMainThread(() =>
+                {
+                    if (!adSetting.AdmobEnableTestMode) return;
+                    var configuration = new RequestConfiguration { TestDeviceIds = adSetting.AdmobDevicesTest };
+                    MobileAds.SetRequestConfiguration(configuration);
+                });
+            });
+            adSetting.AdmobBannerVariable.paidedCallback = TrackRevenue;
+            adSetting.AdmobInterVariable.paidedCallback = TrackRevenue;
+            adSetting.AdmobRewardVariable.paidedCallback = TrackRevenue;
+            adSetting.AdmobRewardInterVariable.paidedCallback = TrackRevenue;
+            adSetting.AdmobAppOpenVariable.paidedCallback = TrackRevenue;
+            RegisterAppStateChange();
+            LoadInterstitial();
+            LoadRewarded();
+            LoadRewardedInterstitial();
+            LoadAppOpen();
+#endif
         }
 
         public override void LoadInterstitial()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            if (!IsInterstitialReady()) adSetting.AdmobInterVariable.Load();
+#endif
         }
 
         public override bool IsInterstitialReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            return adSetting.AdmobInterVariable.IsReady();
+#else
+            return false;
+#endif
         }
 
         public override void LoadRewarded()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            if (!IsRewardedReady()) adSetting.AdmobRewardVariable.Load();
+#endif
         }
 
         public override bool IsRewardedReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            return adSetting.AdmobRewardVariable.IsReady();
+#else
+            return false;
+#endif
         }
 
         public override void LoadRewardedInterstitial()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            if (!IsRewardedInterstitialReady()) adSetting.AdmobRewardInterVariable.Load();
+#endif
         }
 
         public override bool IsRewardedInterstitialReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            return adSetting.AdmobRewardInterVariable.IsReady();
+#else
+            return false;
+#endif
         }
 
         public override void LoadAppOpen()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            if (!IsAppOpenReady()) adSetting.AdmobAppOpenVariable.Load();
+#endif
         }
 
         public override bool IsAppOpenReady()
         {
-            throw new System.NotImplementedException();
+#if VIRTUESKY_ADS && ADS_ADMOB
+            return adSetting.AdmobAppOpenVariable.IsReady();
+#else
+            return false;
+#endif
+        }
+
+        void ShowAppOpen()
+        {
+#if VIRTUESKY_ADS && ADS_ADMOB
+            if (statusAppOpenFirstIgnore) adSetting.AdmobAppOpenVariable.Show();
+            statusAppOpenFirstIgnore = true;
+#endif
+        }
+#if VIRTUESKY_ADS && ADS_ADMOB
+        void RegisterAppStateChange()
+        {
+            GoogleMobileAds.Api.AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
+        }
+
+        void OnAppStateChanged(GoogleMobileAds.Common.AppState state)
+        {
+            if (state == GoogleMobileAds.Common.AppState.Foreground)
+            {
+                if (adSetting.CurrentAdNetwork == AdNetwork.Admob) ShowAppOpen();
+            }
+        }
+#endif
+
+        void TrackRevenue(double value, string network, string unitId, string format)
+        {
+#if VIRTUESKY_ADJUST
+            AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue(AdjustConfig.AdjustAdRevenueSourceAppLovinMAX);
+            adjustAdRevenue.setRevenue(value, "USD");
+            adjustAdRevenue.setAdRevenueNetwork(network);
+            adjustAdRevenue.setAdRevenueUnit(unitId);
+            adjustAdRevenue.setAdRevenuePlacement(format);
+            Adjust.trackAdRevenue(adjustAdRevenue);
+#endif
+#if VIRTUESKY_FIREBASE_ANALYTIC
+            Parameter[] parameters =
+            {
+                new("value", value),
+                new("ad_platform", "AppLovin"),
+                new("ad_format", format),
+                new("currency", "USD"),
+                new("ad_unit_name", unitId),
+                new("ad_source", network)
+            };
+
+            FirebaseAnalytics.LogEvent("ad_impression", parameters);
+#endif
         }
     }
 }

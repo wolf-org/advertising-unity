@@ -8,7 +8,7 @@ namespace VirtueSky.Ads
     public class Advertising : MonoBehaviour
     {
         [SerializeField] private AdSetting adSetting;
-
+        private BooleanEvent changePreventDisplayAppOpenEvent;
         private IEnumerator autoLoadAdCoroutine;
         private float _lastTimeLoadInterstitialAdTimestamp = DEFAULT_TIMESTAMP;
         private float _lastTimeLoadRewardedTimestamp = DEFAULT_TIMESTAMP;
@@ -31,8 +31,10 @@ namespace VirtueSky.Ads
             }
 
             currentAdClient.Initialize();
+            if (autoLoadAdCoroutine != null) StopCoroutine(autoLoadAdCoroutine);
             autoLoadAdCoroutine = IeAutoLoadAll();
             StartCoroutine(autoLoadAdCoroutine);
+            Debug.Log("currentAdClient: " + currentAdClient.name);
         }
 
         public void OnChangePreventDisplayOpenAd(bool state)
@@ -52,7 +54,7 @@ namespace VirtueSky.Ads
                 yield return new WaitForSeconds(adSetting.AdCheckingInterval);
             }
         }
-    
+
         #region Func Load Ads
 
         void AutoLoadInterAds()
@@ -84,5 +86,12 @@ namespace VirtueSky.Ads
         }
 
         #endregion
+
+#if ADS_APPLOVIN
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            if (!pauseStatus) (currentAdClient as MaxAdClient)?.ShowAppOpen();
+        }
+#endif
     }
 }

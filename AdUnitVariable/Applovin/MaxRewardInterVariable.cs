@@ -3,6 +3,7 @@ using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {
+    [Serializable]
     public class MaxRewardInterVariable : AdUnitVariable
     {
         [NonSerialized] internal Action completedCallback;

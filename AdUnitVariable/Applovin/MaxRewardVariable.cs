@@ -41,7 +41,6 @@ namespace VirtueSky.Ads
         public override bool IsReady()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
-            Debug.Log(MaxSdk.IsRewardedAdReady(Id) + " is ready reward / " + Id);
             return !string.IsNullOrEmpty(Id) && MaxSdk.IsRewardedAdReady(Id);
 #else
             return false;

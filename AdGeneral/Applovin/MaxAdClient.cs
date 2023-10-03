@@ -22,26 +22,25 @@ namespace VirtueSky.Ads
             adSetting.MaxRewardVariable.Init();
             adSetting.MaxAppOpenVariable.Init();
             adSetting.MaxRewardInterVariable.Init();
-            
-           // if (!MaxSdk.IsInitialized())
-           // {
-              //  MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
-              //  {
-                    adSetting.MaxBannerVariable.paidedCallback = TrackRevenue;
-                    adSetting.MaxInterVariable.paidedCallback = TrackRevenue;
-                    adSetting.MaxRewardVariable.paidedCallback = TrackRevenue;
-                    adSetting.MaxRewardInterVariable.paidedCallback = TrackRevenue;
-                    adSetting.MaxAppOpenVariable.paidedCallback = TrackRevenue;
-                    LoadInterstitial();
-                    LoadRewarded();
-                    LoadRewardedInterstitial();
-                    LoadAppOpen();
-                    Debug.Log("max Initialized");
-              //  };
-           // }
-            
-            
-            
+
+            // if (!MaxSdk.IsInitialized())
+            // {
+            //  MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
+            //  {
+            adSetting.MaxBannerVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxInterVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxRewardVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxRewardInterVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxAppOpenVariable.paidedCallback = TrackRevenue;
+            LoadInterstitial();
+            LoadRewarded();
+            LoadRewardedInterstitial();
+            LoadAppOpen();
+            Debug.Log("max Initialized");
+            //  };
+            // }
+
+
 #endif
         }
 
@@ -106,6 +105,14 @@ namespace VirtueSky.Ads
             return adSetting.MaxAppOpenVariable.IsReady();
 #else
             return false;
+#endif
+        }
+
+        internal void ShowAppOpen()
+        {
+#if VIRTUESKY_ADS && ADS_APPLOVIN
+            if (statusAppOpenFirstIgnore) adSetting.MaxAppOpenVariable.Show();
+            statusAppOpenFirstIgnore = true;
 #endif
         }
 

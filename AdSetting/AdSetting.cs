@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -162,6 +163,7 @@ namespace VirtueSky.Ads
 
         private const string pathAdmob = "/Ads/Admob";
 
+
         #region Admob Ads
 
         [ShowIf(nameof(adNetwork), AdNetwork.Admob)]
@@ -186,6 +188,8 @@ namespace VirtueSky.Ads
 
         [SerializeField]
         private AdmobBannerVariable admobBannerVariable;
+
+        public AdmobBannerVariable AdmobBannerVariable => admobBannerVariable;
 
         #endregion
 
@@ -212,6 +216,8 @@ namespace VirtueSky.Ads
 
         [SerializeField]
         private AdmobRewardVariable admobRewardVariable;
+
+        public AdmobRewardVariable AdmobRewardVariable => admobRewardVariable;
 
         #endregion
 
@@ -279,6 +285,12 @@ namespace VirtueSky.Ads
 #endif
 
         #endregion
+
+        [SerializeField] private bool admobEnableTestMode;
+        public bool AdmobEnableTestMode => admobEnableTestMode;
+
+        [SerializeField] private List<string> admobDevicesTest;
+        public List<string> AdmobDevicesTest => admobDevicesTest;
 
         #endregion
     }
