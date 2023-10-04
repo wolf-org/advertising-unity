@@ -31,7 +31,6 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaid;
                 if (size != BannerSize.Adaptive) MaxSdk.SetBannerExtraParameter(Id, "adaptive_banner", "false");
                 _registerCallback = true;
-                Debug.Log("Load banner");
             }
 
             if (isBannerDestroyed)

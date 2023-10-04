@@ -34,8 +34,6 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnAdReceivedReward;
                 _registerCallback = true;
             }
-
-            Debug.Log("load reward");
             MaxSdk.LoadRewardedAd(Id);
 #endif
         }
@@ -43,7 +41,6 @@ namespace VirtueSky.Ads
         public override bool IsReady()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
-            Debug.Log($"Reward IsReady id: {Id} / {MaxSdk.IsRewardedAdReady(Id)}");
             return !string.IsNullOrEmpty(Id) && MaxSdk.IsRewardedAdReady(Id);
 #else
             return false;

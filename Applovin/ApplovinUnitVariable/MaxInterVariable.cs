@@ -30,8 +30,6 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnAdDisplayFailed;
                 _registerCallback = true;
             }
-
-            Debug.Log("load inter");
             MaxSdk.LoadInterstitial(Id);
 #endif
         }
@@ -39,7 +37,6 @@ namespace VirtueSky.Ads
         public override bool IsReady()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
-            Debug.Log($"Inter IsReady id: {Id} / {MaxSdk.IsInterstitialReady(Id)}");
             return !string.IsNullOrEmpty(Id) && MaxSdk.IsInterstitialReady(Id);
 #else
             return false;
