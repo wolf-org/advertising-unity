@@ -1,15 +1,5 @@
-using System;
 using GoogleMobileAds.Api;
-using UnityEngine;
-using VirtueSky.Ads;
 using VirtueSky.Global;
-#if VIRTUESKY_FIREBASE_ANALYTIC
-using Firebase.Analytics;
-#endif
-
-#if VIRTUESKY_ADJUST
-using com.adjust.sdk;
-#endif
 
 namespace VirtueSky.Ads
 {
@@ -27,11 +17,11 @@ namespace VirtueSky.Ads
                     MobileAds.SetRequestConfiguration(configuration);
                 });
             });
-            adSetting.AdmobBannerVariable.paidedCallback = TrackRevenue;
-            adSetting.AdmobInterVariable.paidedCallback = TrackRevenue;
-            adSetting.AdmobRewardVariable.paidedCallback = TrackRevenue;
-            adSetting.AdmobRewardInterVariable.paidedCallback = TrackRevenue;
-            adSetting.AdmobAppOpenVariable.paidedCallback = TrackRevenue;
+            adSetting.AdmobBannerVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.AdmobInterVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.AdmobRewardVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.AdmobRewardInterVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.AdmobAppOpenVariable.paidedCallback = AppTracking.TrackRevenue;
             RegisterAppStateChange();
             LoadInterstitial();
             LoadRewarded();
@@ -125,30 +115,5 @@ namespace VirtueSky.Ads
             }
         }
 #endif
-
-        void TrackRevenue(double value, string network, string unitId, string format)
-        {
-#if VIRTUESKY_ADJUST
-            AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue(AdjustConfig.AdjustAdRevenueSourceAppLovinMAX);
-            adjustAdRevenue.setRevenue(value, "USD");
-            adjustAdRevenue.setAdRevenueNetwork(network);
-            adjustAdRevenue.setAdRevenueUnit(unitId);
-            adjustAdRevenue.setAdRevenuePlacement(format);
-            Adjust.trackAdRevenue(adjustAdRevenue);
-#endif
-#if VIRTUESKY_FIREBASE_ANALYTIC
-            Parameter[] parameters =
-            {
-                new("value", value),
-                new("ad_platform", "AppLovin"),
-                new("ad_format", format),
-                new("currency", "USD"),
-                new("ad_unit_name", unitId),
-                new("ad_source", network)
-            };
-
-            FirebaseAnalytics.LogEvent("ad_impression", parameters);
-#endif
-        }
     }
 }

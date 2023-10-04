@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VirtueSky.Ads;
 using VirtueSky.Misc;
 
@@ -34,6 +35,7 @@ namespace VirtueSky.Ads
                 _registerCallback = true;
             }
 
+            Debug.Log("load reward");
             MaxSdk.LoadRewardedAd(Id);
 #endif
         }
@@ -41,6 +43,7 @@ namespace VirtueSky.Ads
         public override bool IsReady()
         {
 #if VIRTUESKY_ADS && ADS_APPLOVIN
+            Debug.Log($"Reward IsReady id: {Id} / {MaxSdk.IsRewardedAdReady(Id)}");
             return !string.IsNullOrEmpty(Id) && MaxSdk.IsRewardedAdReady(Id);
 #else
             return false;
@@ -52,6 +55,14 @@ namespace VirtueSky.Ads
 #if VIRTUESKY_ADS && ADS_APPLOVIN
             MaxSdk.ShowRewardedAd(Id);
 #endif
+        }
+
+        public override AdUnitVariable Show()
+        {
+            ResetChainCallback();
+            if (!UnityEngine.Application.isMobilePlatform || !IsReady()) return this;
+            ShowImpl();
+            return this;
         }
 
         public override void Destroy()

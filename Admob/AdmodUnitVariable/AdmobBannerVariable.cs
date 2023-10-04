@@ -11,9 +11,9 @@ namespace VirtueSky.Ads
     [Serializable]
     public class AdmobBannerVariable : AdUnitVariable
     {
+        public BannerSize size = BannerSize.Adaptive;
+        public BannerPosition position = BannerPosition.Bottom;
 #if VIRTUESKY_ADS && ADS_ADMOB
-        public AdPosition bannerPosition;
-        public AdSize bannerSize = AdSize.Banner;
         private BannerView _bannerView;
 #endif
 
@@ -29,7 +29,7 @@ namespace VirtueSky.Ads
 #if VIRTUESKY_ADS && ADS_ADMOB
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
             Destroy();
-            _bannerView = new BannerView(Id, bannerSize, bannerPosition);
+            _bannerView = new BannerView(Id, ConvertSize(), ConvertPosition());
             _bannerView.OnAdFullScreenContentClosed += OnAdClosed;
             _bannerView.OnBannerAdLoadFailed += OnAdFailedToLoad;
             _bannerView.OnBannerAdLoaded += OnAdLoaded;
@@ -68,6 +68,29 @@ namespace VirtueSky.Ads
 
 
 #if VIRTUESKY_ADS && ADS_ADMOB
+
+        public AdSize ConvertSize()
+        {
+            switch (size)
+            {
+                case BannerSize.Adaptive: return AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
+                default: return AdSize.Banner;
+            }
+        }
+
+        public AdPosition ConvertPosition()
+        {
+            switch (position)
+            {
+                case BannerPosition.Top: return AdPosition.Top;
+                case BannerPosition.Bottom: return AdPosition.Bottom;
+                case BannerPosition.TopLeft: return AdPosition.TopLeft;
+                case BannerPosition.TopRight: return AdPosition.TopRight;
+                case BannerPosition.BottomLeft: return AdPosition.BottomLeft;
+                case BannerPosition.BottomRight: return AdPosition.BottomRight;
+                default: return AdPosition.Bottom;
+            }
+        }
 
         private void OnAdPaided(AdValue value)
         {

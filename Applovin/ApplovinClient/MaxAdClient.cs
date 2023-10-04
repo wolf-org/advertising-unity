@@ -1,12 +1,4 @@
 using UnityEngine;
-using VirtueSky.Ads;
-#if VIRTUESKY_FIREBASE_ANALYTIC
-using Firebase.Analytics;
-#endif
-
-#if VIRTUESKY_ADJUST
-using com.adjust.sdk;
-#endif
 
 namespace VirtueSky.Ads
 {
@@ -24,24 +16,16 @@ namespace VirtueSky.Ads
             adSetting.MaxAppOpenVariable.Init();
             adSetting.MaxRewardInterVariable.Init();
 
-            // if (!MaxSdk.IsInitialized())
-            // {
-            //  MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
-            //  {
-            adSetting.MaxBannerVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxInterVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxRewardVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxRewardInterVariable.paidedCallback = TrackRevenue;
-            adSetting.MaxAppOpenVariable.paidedCallback = TrackRevenue;
+            adSetting.MaxBannerVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.MaxInterVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.MaxRewardVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.MaxRewardInterVariable.paidedCallback = AppTracking.TrackRevenue;
+            adSetting.MaxAppOpenVariable.paidedCallback = AppTracking.TrackRevenue;
+
             LoadInterstitial();
             LoadRewarded();
             LoadRewardedInterstitial();
             LoadAppOpen();
-            Debug.Log("max Initialized");
-            //  };
-            // }
-
-
 #endif
         }
 
@@ -114,31 +98,6 @@ namespace VirtueSky.Ads
 #if VIRTUESKY_ADS && ADS_APPLOVIN
             if (statusAppOpenFirstIgnore) adSetting.MaxAppOpenVariable.Show();
             statusAppOpenFirstIgnore = true;
-#endif
-        }
-
-        void TrackRevenue(double value, string network, string unitId, string format)
-        {
-#if VIRTUESKY_ADJUST
-            AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue(AdjustConfig.AdjustAdRevenueSourceAppLovinMAX);
-            adjustAdRevenue.setRevenue(value, "USD");
-            adjustAdRevenue.setAdRevenueNetwork(network);
-            adjustAdRevenue.setAdRevenueUnit(unitId);
-            adjustAdRevenue.setAdRevenuePlacement(format);
-            Adjust.trackAdRevenue(adjustAdRevenue);
-#endif
-#if VIRTUESKY_FIREBASE_ANALYTIC
-            Parameter[] parameters =
-            {
-                new("value", value),
-                new("ad_platform", "AppLovin"),
-                new("ad_format", format),
-                new("currency", "USD"),
-                new("ad_unit_name", unitId),
-                new("ad_source", network)
-            };
-
-            FirebaseAnalytics.LogEvent("ad_impression", parameters);
 #endif
         }
     }

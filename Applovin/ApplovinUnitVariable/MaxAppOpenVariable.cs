@@ -28,6 +28,8 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent += OnAdRevenuePaid;
                 _registerCallback = true;
             }
+
+            MaxSdk.LoadAppOpenAd(Id);
 #endif
         }
 

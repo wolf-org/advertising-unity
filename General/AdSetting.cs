@@ -299,4 +299,20 @@ namespace VirtueSky.Ads
         Applovin,
         Admob
     }
+
+    public enum BannerPosition
+    {
+        Top = 1,
+        Bottom = 0,
+        TopLeft = 2,
+        TopRight = 3,
+        BottomLeft = 4,
+        BottomRight = 5,
+    }
+
+    public enum BannerSize
+    {
+        Banner = 0, // 320x50
+        Adaptive = 5 // full width
+    }
 }
