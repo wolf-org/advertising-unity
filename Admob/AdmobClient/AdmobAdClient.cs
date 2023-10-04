@@ -1,4 +1,6 @@
+#if VIRTUESKY_ADS && ADS_ADMOB
 using GoogleMobileAds.Api;
+#endif
 using VirtueSky.Global;
 
 namespace VirtueSky.Ads
