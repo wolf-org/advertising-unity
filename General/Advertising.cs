@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using VirtueSky.EditorUtils;
 using VirtueSky.Events;
 
 namespace VirtueSky.Ads
@@ -90,6 +92,13 @@ namespace VirtueSky.Ads
         private void OnApplicationPause(bool pauseStatus)
         {
             if (!pauseStatus) (currentAdClient as MaxAdClient)?.ShowAppOpen();
+        }
+#endif
+
+#if UNITY_EDITOR
+        private void Reset()
+        {
+            adSetting = ScriptableSetting.CreateAndGetScriptableAsset<VirtueSky.Ads.AdSetting>("/Ads");
         }
 #endif
     }
