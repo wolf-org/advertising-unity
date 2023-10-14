@@ -35,7 +35,7 @@
 
 - Script show ads (demo)
   
-```
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
