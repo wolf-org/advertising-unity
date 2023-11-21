@@ -4,9 +4,6 @@ using System.Collections;
 using GoogleMobileAds.Api;
 #endif
 using UnityEngine;
-using VirtueSky.Ads;
-using VirtueSky.Core;
-using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {
@@ -70,7 +67,6 @@ namespace VirtueSky.Ads
 
 
 #if VIRTUESKY_ADS && ADS_ADMOB
-
         public AdSize ConvertSize()
         {
             switch (size)

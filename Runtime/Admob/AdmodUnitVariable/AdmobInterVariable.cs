@@ -3,8 +3,7 @@ using System;
 using GoogleMobileAds.Api;
 #endif
 using UnityEngine;
-using VirtueSky.Ads;
-using VirtueSky.Misc;
+
 
 namespace VirtueSky.Ads
 {

@@ -1,6 +1,4 @@
 using System;
-using VirtueSky.Ads;
-using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {

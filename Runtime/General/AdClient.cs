@@ -1,16 +1,11 @@
 using UnityEngine;
-using VirtueSky.Attributes;
-
-#if UNITY_EDITOR
-using VirtueSky.UtilsEditor;
-#endif
 
 
 namespace VirtueSky.Ads
 {
     public abstract class AdClient : ScriptableObject
     {
-        [SerializeField, ReadOnly] protected AdSetting adSetting;
+        [SerializeField] protected AdSetting adSetting;
         protected bool statusAppOpenFirstIgnore;
 
         public abstract void Initialize();

@@ -1,7 +1,5 @@
 using System;
-using UnityEngine;
-using VirtueSky.Ads;
-using VirtueSky.Misc;
+
 
 namespace VirtueSky.Ads
 {

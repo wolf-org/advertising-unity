@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 using UnityEditor;
-using VirtueSky.UtilsEditor;
 
 namespace VirtueSky.Ads
 {

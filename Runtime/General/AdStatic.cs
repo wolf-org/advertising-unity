@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using VirtueSky.DataStorage;
 
 namespace VirtueSky.Ads
 {
@@ -8,9 +7,14 @@ namespace VirtueSky.Ads
     {
         public static bool IsRemoveAd
         {
-            get => GameData.Get($"{Application.identifier}_removeads", false);
-            set => GameData.Set($"{Application.identifier}_removeads", value);
+            get => GetBool($"{Application.identifier}_removeads", false);
+            set => SetBool($"{Application.identifier}_removeads", value);
         }
+
+        private static bool GetBool(string key, bool defaultValue = false) =>
+            PlayerPrefs.GetInt(key, defaultValue ? 1 : 0) > 0;
+
+        private static void SetBool(string id, bool value) => PlayerPrefs.SetInt(id, value ? 1 : 0);
 
         internal static bool isShowingAd;
 
