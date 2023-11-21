@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using VirtueSky.Ads;
 using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
@@ -34,6 +33,7 @@ namespace VirtueSky.Ads
                 MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnAdReceivedReward;
                 _registerCallback = true;
             }
+
             MaxSdk.LoadRewardedAd(Id);
 #endif
         }

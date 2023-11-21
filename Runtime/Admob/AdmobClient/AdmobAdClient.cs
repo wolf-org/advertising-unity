@@ -1,20 +1,20 @@
 #if VIRTUESKY_ADS && ADS_ADMOB
 using GoogleMobileAds.Api;
 #endif
-using Sirenix.OdinInspector;
 using UnityEngine;
-using VirtueSky.Global;
+using VirtueSky.Attributes;
+using VirtueSky.Core;
 
 namespace VirtueSky.Ads
 {
     public class AdmobAdClient : AdClient
     {
-        [ReadOnly] [SerializeField] [TextArea] string appIdTest = "ca-app-pub-3940256099942544~3347511713";
+        [ReadOnly, SerializeField, TextArea] string AppIdTest = "ca-app-pub-3940256099942544~3347511713";
 
         public override void Initialize()
         {
 #if VIRTUESKY_ADS && ADS_ADMOB
-            MobileAds.Initialize(_ =>
+            MobileAds.Initialize(initStatus =>
             {
                 App.RunOnMainThread(() =>
                 {
@@ -108,7 +108,7 @@ namespace VirtueSky.Ads
 #endif
         }
 #if VIRTUESKY_ADS && ADS_ADMOB
-        void RegisterAppStateChange()
+        public void RegisterAppStateChange()
         {
             GoogleMobileAds.Api.AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
         }

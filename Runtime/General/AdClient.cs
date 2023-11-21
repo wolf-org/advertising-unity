@@ -1,6 +1,10 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
-using VirtueSky.Utils;
+using VirtueSky.Attributes;
+
+#if UNITY_EDITOR
+using VirtueSky.UtilsEditor;
+#endif
+
 
 namespace VirtueSky.Ads
 {

@@ -5,7 +5,7 @@ using GoogleMobileAds.Api;
 #endif
 using UnityEngine;
 using VirtueSky.Ads;
-using VirtueSky.Global;
+using VirtueSky.Core;
 using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
@@ -75,8 +75,7 @@ namespace VirtueSky.Ads
         {
             switch (size)
             {
-                case BannerSize.Adaptive:
-                    return AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
+                case BannerSize.Adaptive: return AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
                 case BannerSize.MediumRectangle: return AdSize.MediumRectangle;
                 case BannerSize.Leaderboard: return AdSize.Leaderboard;
                 case BannerSize.IABBanner: return AdSize.IABBanner;
