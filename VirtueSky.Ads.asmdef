@@ -1,3 +1,16 @@
 {
-	"name": "VirtueSky.Ads"
+    "name": "VirtueSky.Ads",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a4cfc1a18fa3a469b96d885db522f42e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
