@@ -30,6 +30,18 @@ for version `1.0.4`
 
 ## Use
 
+- Use via MenuItem `Unity-Common` > `AdSettings` or shortcut `Ctrl + E / Command + E` to open `AdSettings`
+
+
+![Unity_SkbG2UOp9G](https://github.com/wolf-package/advertising/assets/126542083/ce4bddc9-61ae-4b62-b7bc-0588d0eacff6)
+
+
+
+- Here, select `Ad Network` and enter the ad unit id you want to use, don't forget add `Define Symbol`.
+- If you use `Runtime auto init`, `Advertising` will be created automatically when you load the scene. Conversely, you would attach `Advertising` to the GameObject in the scene so that the ads can be loaded
+
+![Screenshot 2024-05-16 174541](https://github.com/wolf-package/unity-common/assets/102142404/451834ff-91e3-4ccf-90bd-b0c1d4b4f440)
+
 
 - Import `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
     - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_MAX`
@@ -37,4 +49,50 @@ for version `1.0.4`
     - Tracking revenue by Adjust: `VIRTUESKY_ADJUST`
     - Tracking revenue by Firebase Analytic: `VIRTUESKY_FIREBASE_ANALYTIC`
     - Tracking revenue by AppsFlyer: `VIRTUESKY_APPSFLYER`
+
+- Demo API Show Ads
+
+```csharp
+
+    public void ShowBanner()
+    {
+        Advertising.BannerAd.Show();
+    }
+
+    public void HideBanner()
+    {
+        Advertising.BannerAd.HideBanner();
+    }
+
+    public void ShowInter()
+    {
+        Advertising.InterstitialAd.Show().OnCompleted(() =>
+        {
+            // handle show inter completed
+        });
+    }
+
+    public void ShowReward()
+    {
+        Advertising.RewardAd.Show().OnCompleted(() =>
+        {
+            // handle show reward completed
+        }).OnSkipped(() =>
+        {
+            // handle skip reward
+        });
+    }
+
+    public void ShowRewardInter()
+    {
+        Advertising.RewardedInterstitialAd.Show().OnCompleted(() => { });
+    }
+
+    public void ShowAppOpen()
+    {
+        Advertising.AppOpenAd.Show();
+    }
+
+```
+
 
