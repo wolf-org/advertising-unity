@@ -42,9 +42,9 @@ for version `1.0.4`
 - Add `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
     - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_MAX`
     - Admob: `VIRTUESKY_ADS` and `VIRTUESKY_ADMOB`
-    - Tracking revenue by Adjust: `VIRTUESKY_ADJUST`
-    - Tracking revenue by Firebase Analytic: `VIRTUESKY_FIREBASE_ANALYTIC`
-    - Tracking revenue by AppsFlyer: `VIRTUESKY_APPSFLYER`
+    - Tracking revenue by Adjust: `VIRTUESKY_ADJUST` [Get Adjust Sdk](https://github.com/pancake-llc/adjust)
+    - Tracking revenue by Firebase Analytic: `VIRTUESKY_FIREBASE_ANALYTIC` [Get Firebase Analytic Sdk](https://github.com/firebase-unity/firebase-analytics)
+    - Tracking revenue by AppsFlyer: `VIRTUESKY_APPSFLYER` [Get Appsflyer Sdk](https://github.com/AppsFlyerSDK/appsflyer-unity-plugin) , [Get AppsFlyer AdRevenue](https://github.com/AppsFlyerSDK/appsflyer-unity-adrevenue-generic-connector)
   
 - If you use `Runtime auto init`, `Advertising` will be created automatically when you load the scene. Conversely, you would attach `Advertising` to the GameObject in the scene so that the ads can be loaded
 
