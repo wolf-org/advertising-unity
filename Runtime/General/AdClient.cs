@@ -1,28 +1,128 @@
-using UnityEngine;
-
-
 namespace VirtueSky.Ads
 {
-    public abstract class AdClient : ScriptableObject
+    public abstract class AdClient
     {
-        [SerializeField] protected AdSetting adSetting;
-        protected bool statusAppOpenFirstIgnore;
+        protected AdSettings adSettings;
+
+        public void SetupAdSettings(AdSettings _adSettings)
+        {
+            this.adSettings = _adSettings;
+        }
+
+        private bool statusAppOpenFirstIgnore;
+
 
         public abstract void Initialize();
-        public abstract void LoadInterstitial();
-        public abstract bool IsInterstitialReady();
-        public abstract void LoadRewarded();
-        public abstract bool IsRewardedReady();
-        public abstract void LoadRewardedInterstitial();
-        public abstract bool IsRewardedInterstitialReady();
-        public abstract void LoadAppOpen();
-        public abstract bool IsAppOpenReady();
 
-#if UNITY_EDITOR
-        private void Reset()
+        #region Inter Ad
+
+        public AdUnit InterstitialAdUnit()
         {
-            adSetting = CreateAsset.CreateAndGetScriptableAsset<VirtueSky.Ads.AdSetting>("/Ads");
+            return adSettings.CurrentAdNetwork switch
+            {
+                AdNetwork.Max => adSettings.MaxInterstitialAdUnit,
+                _ => adSettings.AdmobInterstitialAdUnit,
+            };
         }
-#endif
+
+        protected virtual bool IsInterstitialReady()
+        {
+            return InterstitialAdUnit().IsReady();
+        }
+
+        public virtual void LoadInterstitial()
+        {
+            if (!IsInterstitialReady()) InterstitialAdUnit().Load();
+        }
+
+        #endregion
+
+        #region Reward Ad
+
+        public AdUnit RewardAdUnit()
+        {
+            return adSettings.CurrentAdNetwork switch
+            {
+                AdNetwork.Max => adSettings.MaxRewardAdUnit,
+                _ => adSettings.AdmobRewardAdUnit,
+            };
+        }
+
+        protected virtual bool IsRewardedReady()
+        {
+            return RewardAdUnit().IsReady();
+        }
+
+        public virtual void LoadRewarded()
+        {
+            if (!IsRewardedReady()) RewardAdUnit().Load();
+        }
+
+        #endregion
+
+        #region Reward Inter Ad
+
+        public AdUnit RewardedInterstitialAdUnit()
+        {
+            return adSettings.CurrentAdNetwork switch
+            {
+                AdNetwork.Max => adSettings.MaxRewardedInterstitialAdUnit,
+                _ => adSettings.AdmobRewardedInterstitialAdUnit,
+            };
+        }
+
+        protected virtual bool IsRewardedInterstitialReady()
+        {
+            return RewardedInterstitialAdUnit().IsReady();
+        }
+
+        public virtual void LoadRewardedInterstitial()
+        {
+            if (!IsRewardedInterstitialReady()) RewardedInterstitialAdUnit().Load();
+        }
+
+        #endregion
+
+        #region AppOpen Ad
+
+        public AdUnit AppOpenAdUnit()
+        {
+            return adSettings.CurrentAdNetwork switch
+            {
+                AdNetwork.Max => adSettings.MaxAppOpenAdUnit,
+                _ => adSettings.AdmobAppOpenAdUnit,
+            };
+        }
+
+        protected virtual bool IsAppOpenReady()
+        {
+            return AppOpenAdUnit().IsReady();
+        }
+
+        public virtual void LoadAppOpen()
+        {
+            if (!IsAppOpenReady()) AppOpenAdUnit().Load();
+        }
+
+        public virtual void ShowAppOpen()
+        {
+            if (statusAppOpenFirstIgnore) AppOpenAdUnit().Show();
+            statusAppOpenFirstIgnore = true;
+        }
+
+        #endregion
+
+        #region Banner Ad
+
+        public AdUnit BannerAdUnit()
+        {
+            return adSettings.CurrentAdNetwork switch
+            {
+                AdNetwork.Max => adSettings.MaxBannerAdUnit,
+                _ => adSettings.AdmobBannerAdUnit,
+            };
+        }
+
+        #endregion
     }
 }
