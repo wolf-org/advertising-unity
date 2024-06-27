@@ -278,11 +278,11 @@ namespace VirtueSky.Ads
 
         [System.Runtime.CompilerServices.MethodImpl(
             System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static Coroutine StartCoroutine(IEnumerator routine) => Instance.StartCoroutineImpl(routine);
+        internal static Coroutine StartCoroutine(IEnumerator routine) => Instance.StartCoroutineImpl(routine);
 
         [System.Runtime.CompilerServices.MethodImpl(
             System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        public static void StopCoroutine(IEnumerator routine) => Instance.StopCoroutineImpl(routine);
+        internal static void StopCoroutine(IEnumerator routine) => Instance.StopCoroutineImpl(routine);
 
         #endregion
     }
