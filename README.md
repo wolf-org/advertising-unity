@@ -25,7 +25,7 @@
 
 for version `1.0.4`
 ```csharp
-"com.wolf-package.advertising":"https://github.com/wolf-package/advertising.git#1.0.4",
+"com.wolf-package.advertising":"https://github.com/wolf-package/advertising-unity.git#1.0.4",
 ```
 
 ## Use
