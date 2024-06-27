@@ -1,0 +1,144 @@
+using System;
+
+
+namespace VirtueSky.Ads
+{
+    [Serializable]
+    public class MaxRewardAdUnit : AdUnit
+    {
+        [NonSerialized] internal Action completedCallback;
+        [NonSerialized] internal Action skippedCallback;
+        private bool _registerCallback = false;
+        public bool IsEarnRewarded { get; private set; }
+
+
+        public override void Init()
+        {
+            _registerCallback = false;
+        }
+
+        public override void Load()
+        {
+#if VIRTUESKY_ADS && VIRTUESKY_MAX
+            if (string.IsNullOrEmpty(Id)) return;
+            if (!_registerCallback)
+            {
+                MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += OnAdDisplayed;
+                MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnAdHidden;
+                MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnAdLoaded;
+                MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent += OnAdDisplayFailed;
+                MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += OnAdLoadFailed;
+                MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaid;
+                MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnAdReceivedReward;
+                MaxSdkCallbacks.Rewarded.OnAdClickedEvent += OnAdClicked;
+                _registerCallback = true;
+            }
+
+            MaxSdk.LoadRewardedAd(Id);
+#endif
+        }
+
+        public override bool IsReady()
+        {
+#if VIRTUESKY_ADS && VIRTUESKY_MAX
+            return !string.IsNullOrEmpty(Id) && MaxSdk.IsRewardedAdReady(Id);
+#else
+            return false;
+#endif
+        }
+
+        protected override void ShowImpl()
+        {
+#if VIRTUESKY_ADS && VIRTUESKY_MAX
+            MaxSdk.ShowRewardedAd(Id);
+#endif
+        }
+
+        public override AdUnit Show()
+        {
+            ResetChainCallback();
+            if (!UnityEngine.Application.isMobilePlatform || !IsReady()) return this;
+            ShowImpl();
+            return this;
+        }
+
+        public override void Destroy()
+        {
+        }
+
+        protected override void ResetChainCallback()
+        {
+            base.ResetChainCallback();
+            completedCallback = null;
+            skippedCallback = null;
+        }
+
+        #region Func Callback
+
+#if VIRTUESKY_ADS && VIRTUESKY_MAX
+        private void OnAdReceivedReward(string unit, MaxSdkBase.Reward reward,
+            MaxSdkBase.AdInfo info)
+        {
+            IsEarnRewarded = true;
+        }
+
+        private void OnAdRevenuePaid(string unit, MaxSdkBase.AdInfo info)
+        {
+            paidedCallback?.Invoke(info.Revenue,
+                info.NetworkName,
+                unit,
+                info.AdFormat, AdNetwork.Max.ToString());
+        }
+
+        private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
+        {
+            AdStatic.CallActionAndClean(ref failedToLoadCallback);
+            OnFailedToLoadAdEvent?.Invoke(info.Message);
+        }
+
+        private void OnAdClicked(string arg1, MaxSdkBase.AdInfo arg2)
+        {
+            AdStatic.CallActionAndClean(ref clickedCallback);
+            OnClickedAdEvent?.Invoke();
+        }
+
+        private void OnAdDisplayFailed(string unit, MaxSdkBase.ErrorInfo errorInfo,
+            MaxSdkBase.AdInfo info)
+        {
+            AdStatic.CallActionAndClean(ref failedToDisplayCallback);
+            OnFailedToDisplayAdEvent?.Invoke(errorInfo.Message);
+        }
+
+        private void OnAdLoaded(string unit, MaxSdkBase.AdInfo info)
+        {
+            AdStatic.CallActionAndClean(ref loadedCallback);
+            OnLoadAdEvent?.Invoke();
+        }
+
+        private void OnAdHidden(string unit, MaxSdkBase.AdInfo info)
+        {
+            AdStatic.isShowingAd = false;
+            AdStatic.CallActionAndClean(ref closedCallback);
+            OnClosedAdEvent?.Invoke();
+            if (!IsReady()) MaxSdk.LoadRewardedAd(Id);
+            if (IsEarnRewarded)
+            {
+                AdStatic.CallActionAndClean(ref completedCallback);
+                IsEarnRewarded = false;
+                return;
+            }
+
+            AdStatic.CallActionAndClean(ref skippedCallback);
+        }
+
+        private void OnAdDisplayed(string unit, MaxSdkBase.AdInfo info)
+        {
+            AdStatic.isShowingAd = true;
+            AdStatic.CallActionAndClean(ref displayedCallback);
+            OnDisplayedAdEvent?.Invoke();
+        }
+#endif
+
+        #endregion
+    }
+}

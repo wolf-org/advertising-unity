@@ -5,69 +5,85 @@ namespace VirtueSky.Ads
 {
     public static class AdStatic
     {
-        public static bool IsRemoveAd
+        internal static void CallActionAndClean(ref Action action)
         {
-            get => GetBool($"{Application.identifier}_removeads", false);
-            set => SetBool($"{Application.identifier}_removeads", value);
+            if (action == null) return;
+            var a = action;
+            a();
+            action = null;
         }
 
-        private static bool GetBool(string key, bool defaultValue = false) =>
-            PlayerPrefs.GetInt(key, defaultValue ? 1 : 0) > 0;
+        public static bool IsRemoveAd
+        {
+            get => PlayerPrefs.GetInt($"{Application.identifier}_removeads", 0) > 0;
+            set => PlayerPrefs.SetInt($"{Application.identifier}_removeads", value ? 1 : 0);
+        }
 
-        private static void SetBool(string id, bool value) => PlayerPrefs.SetInt(id, value ? 1 : 0);
+        public static bool isShowingAd;
+        internal static Action waitAppOpenDisplayedAction;
+        internal static Action waitAppOpenClosedAction;
 
-        internal static bool isShowingAd;
-
-        public static AdUnitVariable OnDisplayed(this AdUnitVariable unit, Action onDisplayed)
+        public static AdUnit OnDisplayed(this AdUnit unit, Action onDisplayed)
         {
             unit.displayedCallback = onDisplayed;
             return unit;
         }
 
-        public static AdUnitVariable OnClosed(this AdUnitVariable unit, Action onClosed)
+        public static AdUnit OnClosed(this AdUnit unit, Action onClosed)
         {
             unit.closedCallback = onClosed;
             return unit;
         }
 
-        public static AdUnitVariable OnLoaded(this AdUnitVariable unit, Action onLoaded)
+        public static AdUnit OnLoaded(this AdUnit unit, Action onLoaded)
         {
             unit.loadedCallback = onLoaded;
             return unit;
         }
 
-        public static AdUnitVariable OnFailedToLoad(this AdUnitVariable unit, Action onFailedToLoad)
+        public static AdUnit OnFailedToLoad(this AdUnit unit, Action onFailedToLoad)
         {
             unit.failedToLoadCallback = onFailedToLoad;
             return unit;
         }
 
-        public static AdUnitVariable OnFailedToDisplay(this AdUnitVariable unit, Action onFailedToDisplay)
+        public static AdUnit OnFailedToDisplay(this AdUnit unit, Action onFailedToDisplay)
         {
             unit.failedToDisplayCallback = onFailedToDisplay;
             return unit;
         }
 
-        public static AdUnitVariable OnCompleted(this AdUnitVariable unit, Action onCompleted)
+        public static AdUnit OnClicked(this AdUnit unit, Action onClicked)
         {
+            unit.clickedCallback = onClicked;
+            return unit;
+        }
+
+        public static AdUnit OnCompleted(this AdUnit unit, Action onCompleted)
+        {
+            if (!Application.isMobilePlatform)
+            {
+                onCompleted?.Invoke();
+            }
+
             switch (unit)
             {
-                case AdmobInterVariable admobInter:
+                case AdmobInterstitialAdUnit admobInter:
                     admobInter.completedCallback = onCompleted;
                     return unit;
-                case AdmobRewardVariable admobReward:
+                case AdmobRewardAdUnit admobReward:
                     admobReward.completedCallback = onCompleted;
                     return unit;
-                case AdmobRewardInterVariable admobRewardInter:
+                case AdmobRewardedInterstitialAdUnit admobRewardInter:
                     admobRewardInter.completedCallback = onCompleted;
                     return unit;
-                case MaxInterVariable maxInter:
+                case MaxInterstitialAdUnit maxInter:
                     maxInter.completedCallback = onCompleted;
                     return unit;
-                case MaxRewardVariable maxReward:
+                case MaxRewardAdUnit maxReward:
                     maxReward.completedCallback = onCompleted;
                     return unit;
-                case MaxRewardInterVariable maxRewardInter:
+                case MaxRewardedInterstitialAdUnit maxRewardInter:
                     maxRewardInter.completedCallback = onCompleted;
                     return unit;
             }
@@ -75,20 +91,20 @@ namespace VirtueSky.Ads
             return unit;
         }
 
-        public static AdUnitVariable OnSkipped(this AdUnitVariable unit, Action onSkipped)
+        public static AdUnit OnSkipped(this AdUnit unit, Action onSkipped)
         {
             switch (unit)
             {
-                case AdmobRewardVariable admobReward:
+                case AdmobRewardAdUnit admobReward:
                     admobReward.skippedCallback = onSkipped;
                     return unit;
-                case AdmobRewardInterVariable admobRewardInter:
+                case AdmobRewardedInterstitialAdUnit admobRewardInter:
                     admobRewardInter.skippedCallback = onSkipped;
                     return unit;
-                case MaxRewardVariable maxReward:
+                case MaxRewardAdUnit maxReward:
                     maxReward.skippedCallback = onSkipped;
                     return unit;
-                case MaxRewardInterVariable maxRewardInter:
+                case MaxRewardedInterstitialAdUnit maxRewardInter:
                     maxRewardInter.skippedCallback = onSkipped;
                     return unit;
             }
