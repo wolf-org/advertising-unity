@@ -11,6 +11,7 @@ namespace VirtueSky.Ads
 {
     public class Advertising : MonoBehaviour
     {
+        public bool dontDestroyOnLoad = true;
         public static Advertising Instance;
         private IEnumerator autoLoadAdCoroutine;
         private float _lastTimeLoadInterstitialAdTimestamp = DEFAULT_TIMESTAMP;
@@ -24,7 +25,11 @@ namespace VirtueSky.Ads
 
         private void Awake()
         {
-            DontDestroyOnLoad(this.gameObject);
+            if (dontDestroyOnLoad)
+            {
+                DontDestroyOnLoad(this.gameObject);
+            }
+
             if (Instance == null)
             {
                 Instance = this;
