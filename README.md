@@ -1,5 +1,3 @@
-## What
-### Show ads tool for unity games (support for Max-Applovin and Google Mobile Ads)
 <p align="left">
   <a>
     <img alt="Made With Unity" src="https://img.shields.io/badge/made%20with-Unity-57b9d3.svg?logo=Unity">
@@ -17,6 +15,9 @@
     <img alt="Last Release" src="https://img.shields.io/github/v/release/wolf-package/advertising?include_prereleases&logo=Dropbox&color=yellow">
   </a>
 </p>
+
+## What
+### Show ads tool for unity games (support for Max-Applovin and Google Mobile Ads)
 
 ## How To Install
 
