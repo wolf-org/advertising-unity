@@ -38,17 +38,18 @@ for version `1.0.4`
 
 
 - Here, select `Ad Network` and enter the ad unit id you want to use, don't forget add `Define Symbol`.
-- If you use `Runtime auto init`, `Advertising` will be created automatically when you load the scene. Conversely, you would attach `Advertising` to the GameObject in the scene so that the ads can be loaded
 
-![Screenshot 2024-05-16 174541](https://github.com/wolf-package/unity-common/assets/102142404/451834ff-91e3-4ccf-90bd-b0c1d4b4f440)
-
-
-- Import `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
+- Add `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
     - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_MAX`
     - Admob: `VIRTUESKY_ADS` and `VIRTUESKY_ADMOB`
     - Tracking revenue by Adjust: `VIRTUESKY_ADJUST`
     - Tracking revenue by Firebase Analytic: `VIRTUESKY_FIREBASE_ANALYTIC`
     - Tracking revenue by AppsFlyer: `VIRTUESKY_APPSFLYER`
+  
+- If you use `Runtime auto init`, `Advertising` will be created automatically when you load the scene. Conversely, you would attach `Advertising` to the GameObject in the scene so that the ads can be loaded
+
+![Screenshot 2024-05-16 174541](https://github.com/wolf-package/unity-common/assets/102142404/451834ff-91e3-4ccf-90bd-b0c1d4b4f440)
+
 
 - Demo API Show Ads
 
