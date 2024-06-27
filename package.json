@@ -1,0 +1,21 @@
+{
+  "name": "com.wolf-package.advertising",
+  "displayName": "UnityCommon-ADS",
+  "description": "Support show ads for game unity",
+  "version": "1.0.4",
+  "unity": "2021.3",
+  "category": "virtuesky",
+  "license": "MIT",
+  "author": {
+    "name": "virtuesky",
+    "email": "virtuesky.0520@gmail.com",
+    "url": "https://github.com/VirtueSky"
+  },
+  "keywords": [
+    "Unity",
+    "Ads",
+    "Advertising"
+  ],
+  "dependencies": {
+  }
+}
