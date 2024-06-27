@@ -31,16 +31,9 @@ for version `1.0.4`
 
 
 - Import `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
-    -   For Applovin: `VIRTUESKY_ADS` and `ADS_APPLOVIN`
-    -   For Admob: `VIRTUESKY_ADS` and `ADS_ADMOB`
-    -   For Tracking Adjust: `VIRTUESKY_ADJUST`
-    -   For Tracking Firebase Analytic: `VIRTUESKY_FIREBASE_ANALYTIC`
-      
-    ![Screenshot 2023-10-03 175544](https://github.com/wolf-package/advertising/assets/56286032/44ab8706-b06e-49da-86fa-c67663ed4339)
+    - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_MAX`
+    - Admob: `VIRTUESKY_ADS` and `VIRTUESKY_ADMOB`
+    - Tracking revenue by Adjust: `VIRTUESKY_ADJUST`
+    - Tracking revenue by Firebase Analytic: `VIRTUESKY_FIREBASE_ANALYTIC`
+    - Tracking revenue by AppsFlyer: `VIRTUESKY_APPSFLYER`
 
-
-- Script show ads (demo)
-  
-```
-
-```
