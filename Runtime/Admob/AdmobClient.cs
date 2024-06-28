@@ -1,7 +1,6 @@
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
 using GoogleMobileAds.Api;
 #endif
-using System;
 
 namespace VirtueSky.Ads
 {
@@ -32,11 +31,15 @@ namespace VirtueSky.Ads
                     { TestDeviceIds = adSettings.AdmobDevicesTest };
                 MobileAds.SetRequestConfiguration(configuration);
             });
-            adSettings.AdmobBannerAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.AdmobInterstitialAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.AdmobRewardAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.AdmobRewardedInterstitialAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.AdmobAppOpenAdUnit.paidedCallback = AppTracking.TrackRevenue;
+
+#if VIRTUESKY_TRACKING
+            adSettings.AdmobBannerAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.AdmobInterstitialAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.AdmobRewardAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.AdmobRewardedInterstitialAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.AdmobAppOpenAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+#endif
+
             RegisterAppStateChange();
             LoadInterstitial();
             LoadRewarded();

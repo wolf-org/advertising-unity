@@ -1,5 +1,3 @@
-//using VirtueSky.Tracking;
-
 namespace VirtueSky.Ads
 {
     public class MaxAdClient : AdClient
@@ -16,11 +14,14 @@ namespace VirtueSky.Ads
             adSettings.MaxAppOpenAdUnit.Init();
             adSettings.MaxRewardedInterstitialAdUnit.Init();
 
-            adSettings.MaxBannerAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.MaxInterstitialAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.MaxRewardAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.MaxRewardedInterstitialAdUnit.paidedCallback = AppTracking.TrackRevenue;
-            adSettings.MaxAppOpenAdUnit.paidedCallback = AppTracking.TrackRevenue;
+#if VIRTUESKY_TRACKING
+            adSettings.MaxBannerAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.MaxInterstitialAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.MaxRewardAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.MaxRewardedInterstitialAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            adSettings.MaxAppOpenAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+
+#endif
 
             LoadInterstitial();
             LoadRewarded();
