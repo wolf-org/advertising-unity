@@ -253,21 +253,6 @@ namespace VirtueSky.Ads
             }
         }
 
-        private Coroutine StartCoroutineImpl(IEnumerator routine)
-        {
-            if (routine != null)
-            {
-                return StartCoroutine(routine);
-            }
-
-            return null;
-        }
-
-        private void StopCoroutineImpl(IEnumerator routine)
-        {
-            if (routine != null) StopCoroutine(routine);
-        }
-
         #region Public API
 
         public static AdUnit BannerAd => Instance.currentAdClient.BannerAdUnit();
@@ -275,14 +260,6 @@ namespace VirtueSky.Ads
         public static AdUnit RewardAd => Instance.currentAdClient.RewardAdUnit();
         public static AdUnit RewardedInterstitialAd => Instance.currentAdClient.RewardedInterstitialAdUnit();
         public static AdUnit AppOpenAd => Instance.currentAdClient.AppOpenAdUnit();
-
-        [System.Runtime.CompilerServices.MethodImpl(
-            System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static Coroutine StartCoroutine(IEnumerator routine) => Instance.StartCoroutineImpl(routine);
-
-        [System.Runtime.CompilerServices.MethodImpl(
-            System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-        internal static void StopCoroutine(IEnumerator routine) => Instance.StopCoroutineImpl(routine);
 
         #endregion
     }

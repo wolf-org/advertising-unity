@@ -5,7 +5,7 @@ using VirtueSky.Misc;
 using GoogleMobileAds.Api;
 #endif
 using System.Collections;
-
+using VirtueSky.Core;
 
 namespace VirtueSky.Ads
 {
@@ -191,9 +191,9 @@ namespace VirtueSky.Ads
         {
             Common.CallActionAndClean(ref failedToLoadCallback);
             OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
-            if (_reload != null) Advertising.StopCoroutine(_reload);
+            if (_reload != null) App.StopCoroutine(_reload);
             _reload = DelayBannerReload();
-            Advertising.StartCoroutine(_reload);
+            App.StartCoroutine(_reload);
         }
 
         private void OnAdClosed()
