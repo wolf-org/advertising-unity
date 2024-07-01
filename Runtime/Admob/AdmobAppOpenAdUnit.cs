@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VirtueSky.Misc;
 
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
 using GoogleMobileAds.Api;
@@ -98,7 +99,7 @@ namespace VirtueSky.Ads
 
         private void OnAdClicked()
         {
-            AdStatic.CallActionAndClean(ref clickedCallback);
+            Common.CallActionAndClean(ref clickedCallback);
             OnClickedAdEvent?.Invoke();
         }
 
@@ -106,13 +107,13 @@ namespace VirtueSky.Ads
         {
             AdStatic.waitAppOpenDisplayedAction?.Invoke();
             AdStatic.isShowingAd = true;
-            AdStatic.CallActionAndClean(ref displayedCallback);
+            Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
 
         private void OnAdFailedToShow(AdError obj)
         {
-            AdStatic.CallActionAndClean(ref failedToDisplayCallback);
+            Common.CallActionAndClean(ref failedToDisplayCallback);
             OnFailedToDisplayAdEvent?.Invoke(obj.GetMessage());
         }
 
@@ -120,7 +121,7 @@ namespace VirtueSky.Ads
         {
             AdStatic.waitAppOpenClosedAction?.Invoke();
             AdStatic.isShowingAd = false;
-            AdStatic.CallActionAndClean(ref closedCallback);
+            Common.CallActionAndClean(ref closedCallback);
             OnClosedAdEvent?.Invoke();
             Destroy();
         }
@@ -135,13 +136,13 @@ namespace VirtueSky.Ads
 
         private void OnAdLoaded()
         {
-            AdStatic.CallActionAndClean(ref loadedCallback);
+            Common.CallActionAndClean(ref loadedCallback);
             OnLoadAdEvent?.Invoke();
         }
 
         private void OnAdFailedToLoad(LoadAdError error)
         {
-            AdStatic.CallActionAndClean(ref failedToLoadCallback);
+            Common.CallActionAndClean(ref failedToLoadCallback);
             OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
         }
 #endif

@@ -5,14 +5,6 @@ namespace VirtueSky.Ads
 {
     public static class AdStatic
     {
-        internal static void CallActionAndClean(ref Action action)
-        {
-            if (action == null) return;
-            var a = action;
-            a();
-            action = null;
-        }
-
         public static bool IsRemoveAd
         {
             get => PlayerPrefs.GetInt($"{Application.identifier}_removeads", 0) > 0;

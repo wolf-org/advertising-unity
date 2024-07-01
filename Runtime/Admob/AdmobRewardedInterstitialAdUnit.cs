@@ -2,7 +2,7 @@ using System;
 #if VIRTUESKY_ADMOB && VIRTUESKY_ADS
 using GoogleMobileAds.Api;
 #endif
-
+using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {
@@ -99,19 +99,19 @@ namespace VirtueSky.Ads
 
         private void OnAdClicked()
         {
-            AdStatic.CallActionAndClean(ref clickedCallback);
+            Common.CallActionAndClean(ref clickedCallback);
             OnClickedAdEvent?.Invoke();
         }
 
         private void OnAdFailedToLoad(LoadAdError error)
         {
-            AdStatic.CallActionAndClean(ref failedToLoadCallback);
+            Common.CallActionAndClean(ref failedToLoadCallback);
             OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
         }
 
         private void OnAdLoaded()
         {
-            AdStatic.CallActionAndClean(ref loadedCallback);
+            Common.CallActionAndClean(ref loadedCallback);
             OnLoadAdEvent?.Invoke();
         }
 
@@ -125,30 +125,30 @@ namespace VirtueSky.Ads
 
         private void OnAdFailedToShow(AdError error)
         {
-            AdStatic.CallActionAndClean(ref failedToDisplayCallback);
+            Common.CallActionAndClean(ref failedToDisplayCallback);
             OnFailedToDisplayAdEvent?.Invoke(error.GetMessage());
         }
 
         private void OnAdOpening()
         {
             AdStatic.isShowingAd = true;
-            AdStatic.CallActionAndClean(ref displayedCallback);
+            Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
 
         private void OnAdClosed()
         {
             AdStatic.isShowingAd = false;
-            AdStatic.CallActionAndClean(ref closedCallback);
+            Common.CallActionAndClean(ref closedCallback);
             OnClosedAdEvent?.Invoke();
             if (IsEarnRewarded)
             {
-                AdStatic.CallActionAndClean(ref completedCallback);
+                Common.CallActionAndClean(ref completedCallback);
                 _rewardedInterstitialAd.Destroy();
                 return;
             }
 
-            AdStatic.CallActionAndClean(ref skippedCallback);
+            Common.CallActionAndClean(ref skippedCallback);
             _rewardedInterstitialAd.Destroy();
         }
 

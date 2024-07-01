@@ -17,5 +17,6 @@
     "Advertising"
   ],
   "dependencies": {
+    "com.wolf-package.extensions": "https://github.com/wolf-package/extensions-unity.git#1.0.0"
   }
 }

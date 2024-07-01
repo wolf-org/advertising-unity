@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {
@@ -62,7 +62,7 @@ namespace VirtueSky.Ads
 #if VIRTUESKY_ADS && VIRTUESKY_MAX
         private void OnAdLoaded(string unit, MaxSdkBase.AdInfo info)
         {
-            AdStatic.CallActionAndClean(ref loadedCallback);
+            Common.CallActionAndClean(ref loadedCallback);
             OnLoadAdEvent?.Invoke();
         }
 
@@ -76,20 +76,20 @@ namespace VirtueSky.Ads
 
         private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
         {
-            AdStatic.CallActionAndClean(ref failedToLoadCallback);
+            Common.CallActionAndClean(ref failedToLoadCallback);
             OnFailedToLoadAdEvent?.Invoke(info.Message);
         }
 
         private void OnAdClicked(string arg1, MaxSdkBase.AdInfo arg2)
         {
-            AdStatic.CallActionAndClean(ref clickedCallback);
+            Common.CallActionAndClean(ref clickedCallback);
             OnClickedAdEvent?.Invoke();
         }
 
         private void OnAdDisplayFailed(string unit, MaxSdkBase.ErrorInfo errorInfo,
             MaxSdkBase.AdInfo info)
         {
-            AdStatic.CallActionAndClean(ref failedToDisplayCallback);
+            Common.CallActionAndClean(ref failedToDisplayCallback);
             OnFailedToDisplayAdEvent?.Invoke(errorInfo.Message);
         }
 
@@ -97,7 +97,7 @@ namespace VirtueSky.Ads
         {
             AdStatic.waitAppOpenClosedAction?.Invoke();
             AdStatic.isShowingAd = false;
-            AdStatic.CallActionAndClean(ref closedCallback);
+            Common.CallActionAndClean(ref closedCallback);
             OnClosedAdEvent?.Invoke();
 
             if (!string.IsNullOrEmpty(Id)) MaxSdk.LoadAppOpenAd(Id);
@@ -107,7 +107,7 @@ namespace VirtueSky.Ads
         {
             AdStatic.waitAppOpenDisplayedAction?.Invoke();
             AdStatic.isShowingAd = true;
-            AdStatic.CallActionAndClean(ref displayedCallback);
+            Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
 #endif

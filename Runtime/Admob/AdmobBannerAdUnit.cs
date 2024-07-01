@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VirtueSky.Misc;
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
 using GoogleMobileAds.Api;
 #endif
@@ -134,7 +135,7 @@ namespace VirtueSky.Ads
 
         private void OnAdClicked()
         {
-            AdStatic.CallActionAndClean(ref clickedCallback);
+            Common.CallActionAndClean(ref clickedCallback);
             OnClickedAdEvent?.Invoke();
         }
 
@@ -176,19 +177,19 @@ namespace VirtueSky.Ads
 
         private void OnAdOpening()
         {
-            AdStatic.CallActionAndClean(ref displayedCallback);
+            Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
 
         private void OnAdLoaded()
         {
-            AdStatic.CallActionAndClean(ref loadedCallback);
+            Common.CallActionAndClean(ref loadedCallback);
             OnLoadAdEvent?.Invoke();
         }
 
         private void OnAdFailedToLoad(LoadAdError error)
         {
-            AdStatic.CallActionAndClean(ref failedToLoadCallback);
+            Common.CallActionAndClean(ref failedToLoadCallback);
             OnFailedToLoadAdEvent?.Invoke(error.GetMessage());
             if (_reload != null) Advertising.StopCoroutine(_reload);
             _reload = DelayBannerReload();
@@ -197,7 +198,7 @@ namespace VirtueSky.Ads
 
         private void OnAdClosed()
         {
-            AdStatic.CallActionAndClean(ref closedCallback);
+            Common.CallActionAndClean(ref closedCallback);
             OnClosedAdEvent?.Invoke();
         }
 

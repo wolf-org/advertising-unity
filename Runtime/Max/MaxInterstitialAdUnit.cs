@@ -1,5 +1,5 @@
 using System;
-
+using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {
@@ -68,27 +68,27 @@ namespace VirtueSky.Ads
         private void OnAdDisplayFailed(string unit, MaxSdkBase.ErrorInfo error,
             MaxSdkBase.AdInfo info)
         {
-            AdStatic.CallActionAndClean(ref failedToDisplayCallback);
+            Common.CallActionAndClean(ref failedToDisplayCallback);
             OnFailedToDisplayAdEvent?.Invoke(error.Message);
         }
 
         private void OnAdHidden(string unit, MaxSdkBase.AdInfo info)
         {
             AdStatic.isShowingAd = false;
-            AdStatic.CallActionAndClean(ref completedCallback);
+            Common.CallActionAndClean(ref completedCallback);
             if (!string.IsNullOrEmpty(Id)) MaxSdk.LoadInterstitial(Id);
         }
 
         private void OnAdDisplayed(string unit, MaxSdkBase.AdInfo info)
         {
             AdStatic.isShowingAd = true;
-            AdStatic.CallActionAndClean(ref displayedCallback);
+            Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
 
         private void OnAdClicked(string arg1, MaxSdkBase.AdInfo arg2)
         {
-            AdStatic.CallActionAndClean(ref clickedCallback);
+            Common.CallActionAndClean(ref clickedCallback);
             OnClickedAdEvent?.Invoke();
         }
 
@@ -102,13 +102,13 @@ namespace VirtueSky.Ads
 
         private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo info)
         {
-            AdStatic.CallActionAndClean(ref failedToLoadCallback);
+            Common.CallActionAndClean(ref failedToLoadCallback);
             OnFailedToLoadAdEvent?.Invoke(info.Message);
         }
 
         private void OnAdLoaded(string unit, MaxSdkBase.AdInfo info)
         {
-            AdStatic.CallActionAndClean(ref loadedCallback);
+            Common.CallActionAndClean(ref loadedCallback);
             OnLoadAdEvent?.Invoke();
         }
 #endif

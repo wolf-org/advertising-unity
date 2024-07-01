@@ -1,5 +1,5 @@
 using System;
-
+using VirtueSky.Misc;
 
 namespace VirtueSky.Ads
 {
@@ -95,50 +95,50 @@ namespace VirtueSky.Ads
 
         private void OnAdClicked(string arg1, MaxSdkBase.AdInfo arg2)
         {
-            AdStatic.CallActionAndClean(ref clickedCallback);
+            Common.CallActionAndClean(ref clickedCallback);
             OnClickedAdEvent?.Invoke();
         }
 
         private void OnAdLoadFailed(string unit, MaxSdkBase.ErrorInfo error)
         {
-            AdStatic.CallActionAndClean(ref failedToLoadCallback);
+            Common.CallActionAndClean(ref failedToLoadCallback);
             OnFailedToLoadAdEvent?.Invoke(error.Message);
         }
 
         private void OnAdLoaded(string unit, MaxSdkBase.AdInfo info)
         {
-            AdStatic.CallActionAndClean(ref loadedCallback);
+            Common.CallActionAndClean(ref loadedCallback);
             OnLoadAdEvent?.Invoke();
         }
 
         private void OnAdDisplayFailed(string unit, MaxSdkBase.ErrorInfo error,
             MaxSdkBase.AdInfo info)
         {
-            AdStatic.CallActionAndClean(ref failedToDisplayCallback);
+            Common.CallActionAndClean(ref failedToDisplayCallback);
             OnFailedToDisplayAdEvent?.Invoke(error.Message);
         }
 
         private void OnAdHidden(string unit, MaxSdkBase.AdInfo info)
         {
             AdStatic.isShowingAd = false;
-            AdStatic.CallActionAndClean(ref closedCallback);
+            Common.CallActionAndClean(ref closedCallback);
             OnClosedAdEvent?.Invoke();
             if (!IsReady()) MaxSdk.LoadRewardedInterstitialAd(Id);
 
             if (IsEarnRewarded)
             {
-                AdStatic.CallActionAndClean(ref completedCallback);
+                Common.CallActionAndClean(ref completedCallback);
                 IsEarnRewarded = false;
                 return;
             }
 
-            AdStatic.CallActionAndClean(ref skippedCallback);
+            Common.CallActionAndClean(ref skippedCallback);
         }
 
         private void OnAdDisplayed(string unit, MaxSdkBase.AdInfo info)
         {
             AdStatic.isShowingAd = true;
-            AdStatic.CallActionAndClean(ref displayedCallback);
+            Common.CallActionAndClean(ref displayedCallback);
             OnDisplayedAdEvent?.Invoke();
         }
 #endif
