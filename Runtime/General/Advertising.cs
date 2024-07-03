@@ -68,6 +68,9 @@ namespace VirtueSky.Ads
                 case AdNetwork.Admob:
                     currentAdClient = new AdmobClient();
                     break;
+                case AdNetwork.IronSource:
+                    currentAdClient = new IronSourceClient();
+                    break;
             }
 
             currentAdClient.SetupAdSettings(adSettings);
@@ -241,6 +244,7 @@ namespace VirtueSky.Ads
         }
 #endif
 
+#if VIRTUESKY_ADS
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void AutoInitialize()
         {
@@ -252,6 +256,8 @@ namespace VirtueSky.Ads
                 DontDestroyOnLoad(ads);
             }
         }
+#endif
+
 
         #region Public API
 
