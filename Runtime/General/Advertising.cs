@@ -11,8 +11,8 @@ namespace VirtueSky.Ads
 {
     public class Advertising : MonoBehaviour
     {
-        public bool dontDestroyOnLoad = true;
-        public static Advertising Instance;
+        [SerializeField] private bool dontDestroyOnLoad = true;
+        private static Advertising _instance;
         private IEnumerator autoLoadAdCoroutine;
         private float _lastTimeLoadInterstitialAdTimestamp = DEFAULT_TIMESTAMP;
         private float _lastTimeLoadRewardedTimestamp = DEFAULT_TIMESTAMP;
@@ -30,9 +30,9 @@ namespace VirtueSky.Ads
                 DontDestroyOnLoad(this.gameObject);
             }
 
-            if (Instance == null)
+            if (_instance == null)
             {
-                Instance = this;
+                _instance = this;
             }
             else
             {
@@ -196,7 +196,7 @@ namespace VirtueSky.Ads
             );
         }
 
-        public void LoadAndShowConsentForm()
+        private void LoadAndShowConsentForm()
         {
             Debug.Log("LoadAndShowConsentForm Start!");
 
@@ -220,7 +220,7 @@ namespace VirtueSky.Ads
             });
         }
 
-        public void ShowPrivacyOptionsForm()
+        private void ShowPrivacyOptionsForm()
         {
             Debug.Log("Showing privacy options form.");
 
@@ -261,11 +261,15 @@ namespace VirtueSky.Ads
 
         #region Public API
 
-        public static AdUnit BannerAd => Instance.currentAdClient.BannerAdUnit();
-        public static AdUnit InterstitialAd => Instance.currentAdClient.InterstitialAdUnit();
-        public static AdUnit RewardAd => Instance.currentAdClient.RewardAdUnit();
-        public static AdUnit RewardedInterstitialAd => Instance.currentAdClient.RewardedInterstitialAdUnit();
-        public static AdUnit AppOpenAd => Instance.currentAdClient.AppOpenAdUnit();
+        public static AdUnit BannerAd => _instance.currentAdClient.BannerAdUnit();
+        public static AdUnit InterstitialAd => _instance.currentAdClient.InterstitialAdUnit();
+        public static AdUnit RewardAd => _instance.currentAdClient.RewardAdUnit();
+        public static AdUnit RewardedInterstitialAd => _instance.currentAdClient.RewardedInterstitialAdUnit();
+        public static AdUnit AppOpenAd => _instance.currentAdClient.AppOpenAdUnit();
+#if VIRTUESKY_ADMOB
+        public static void LoadAndShowGDPR() => _instance.LoadAndShowConsentForm();
+        public static void ShowAgainGDPR() => _instance.ShowPrivacyOptionsForm();
+#endif
 
         #endregion
     }
