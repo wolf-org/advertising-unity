@@ -17,7 +17,7 @@
 </p>
 
 ## What
-### Show ads tool for unity games (support for Max-Applovin and Google Mobile Ads)
+### Show ads tool for unity games (support for Max-Applovin, Google Mobile Ads and IronSource-UnityLevelPlay)
 
 ## How To Install
 
@@ -51,6 +51,7 @@ Install `app-tracking-unity` and add define symbol `VIRTUESKY_TRACKING` if you n
 - Add `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
     - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_MAX`
     - Admob: `VIRTUESKY_ADS` and `VIRTUESKY_ADMOB`
+    - IronSource: `VIRTUESKY_ADS` and `VIRTUESKY_IRONSOURCE`
   
 - If you use `Runtime auto init`, `Advertising` will be created automatically when you load the scene. Conversely, you would attach `Advertising` to the GameObject in the scene so that the ads can be loaded
 
