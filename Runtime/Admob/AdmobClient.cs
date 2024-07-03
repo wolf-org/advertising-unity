@@ -18,12 +18,6 @@ namespace VirtueSky.Ads
             // https://developers.google.com/admob/unity/quick-start#raise_ad_events_on_the_unity_main_thread
             MobileAds.RaiseAdEventsOnUnityMainThread = true;
 
-            adSettings.AdmobBannerAdUnit.Init();
-            adSettings.AdmobInterstitialAdUnit.Init();
-            adSettings.AdmobRewardAdUnit.Init();
-            adSettings.AdmobRewardedInterstitialAdUnit.Init();
-            adSettings.AdmobAppOpenAdUnit.Init();
-
             MobileAds.Initialize(initStatus =>
             {
                 if (!adSettings.AdmobEnableTestMode) return;
@@ -32,13 +26,11 @@ namespace VirtueSky.Ads
                 MobileAds.SetRequestConfiguration(configuration);
             });
 
-#if VIRTUESKY_TRACKING
-            adSettings.AdmobBannerAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
-            adSettings.AdmobInterstitialAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
-            adSettings.AdmobRewardAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
-            adSettings.AdmobRewardedInterstitialAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
-            adSettings.AdmobAppOpenAdUnit.paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
-#endif
+            adSettings.AdmobBannerAdUnit.Init();
+            adSettings.AdmobInterstitialAdUnit.Init();
+            adSettings.AdmobRewardAdUnit.Init();
+            adSettings.AdmobRewardedInterstitialAdUnit.Init();
+            adSettings.AdmobAppOpenAdUnit.Init();
 
             RegisterAppStateChange();
             LoadInterstitial();
@@ -50,7 +42,7 @@ namespace VirtueSky.Ads
 
 
 #if VIRTUESKY_ADS && VIRTUESKY_ADMOB
-        public void RegisterAppStateChange()
+        private void RegisterAppStateChange()
         {
             GoogleMobileAds.Api.AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
         }

@@ -30,6 +30,10 @@ namespace VirtueSky.Ads
             {
                 GetUnitTest();
             }
+#if VIRTUESKY_TRACKING
+            if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
+            paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+#endif
         }
 
         public override void Load()

@@ -7,30 +7,29 @@ namespace VirtueSky.Ads
     public class MaxInterstitialAdUnit : AdUnit
     {
         [NonSerialized] internal Action completedCallback;
-        private bool _registerCallback = false;
 
 
         public override void Init()
         {
-            _registerCallback = false;
+#if VIRTUESKY_ADS && VIRTUESKY_MAX
+            if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
+#if VIRTUESKY_TRACKING
+            paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+#endif
+            MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnAdLoaded;
+            MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnAdLoadFailed;
+            MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaid;
+            MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += OnAdDisplayed;
+            MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnAdHidden;
+            MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnAdDisplayFailed;
+            MaxSdkCallbacks.Interstitial.OnAdClickedEvent += OnAdClicked;
+#endif
         }
 
         public override void Load()
         {
 #if VIRTUESKY_ADS && VIRTUESKY_MAX
             if (AdStatic.IsRemoveAd || string.IsNullOrEmpty(Id)) return;
-            if (!_registerCallback)
-            {
-                MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnAdLoaded;
-                MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnAdLoadFailed;
-                MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaid;
-                MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += OnAdDisplayed;
-                MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnAdHidden;
-                MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnAdDisplayFailed;
-                MaxSdkCallbacks.Interstitial.OnAdClickedEvent += OnAdClicked;
-                _registerCallback = true;
-            }
-
             MaxSdk.LoadInterstitial(Id);
 #endif
         }
