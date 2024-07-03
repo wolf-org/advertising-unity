@@ -7,8 +7,13 @@ namespace VirtueSky.Ads
     {
         public static bool IsRemoveAd
         {
+#if VIRTUESKY_DATA
+            get => VirtueSky.DataStorage.GameData.Get($"{Application.identifier}_removeads", false);
+            set => VirtueSky.DataStorage.GameData.Set($"{Application.identifier}_removeads", value);
+#else
             get => PlayerPrefs.GetInt($"{Application.identifier}_removeads", 0) > 0;
             set => PlayerPrefs.SetInt($"{Application.identifier}_removeads", value ? 1 : 0);
+#endif
         }
 
         public static bool isShowingAd;
