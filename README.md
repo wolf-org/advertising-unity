@@ -23,13 +23,13 @@
 
 ### Add the line below to `Packages/manifest.json`
 
-for version `1.0.7`
+for version `1.0.8`
 ```csharp
-"com.wolf-package.advertising":"https://github.com/wolf-package/advertising-unity.git#1.0.7",
+"com.wolf-package.advertising":"https://github.com/wolf-package/advertising-unity.git#1.0.8",
 ```
-dependency `extensions-unity-1.0.1`
+dependency `extensions-unity-1.0.2`
 ```csharp
-"com.wolf-package.extensions":"https://github.com/wolf-package/extensions-unity.git#1.0.1",
+"com.wolf-package.extensions":"https://github.com/wolf-package/extensions-unity.git#1.0.2",
 ```
 
 Install `app-tracking-unity` and add define symbol `VIRTUESKY_TRACKING` if you need ad revenue tracking
