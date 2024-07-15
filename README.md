@@ -23,9 +23,9 @@
 
 ### Add the line below to `Packages/manifest.json`
 
-for version `1.0.9`
+for version `1.1.0`
 ```csharp
-"com.wolf-package.advertising":"https://github.com/wolf-package/advertising-unity.git#1.0.9",
+"com.wolf-package.advertising":"https://github.com/wolf-package/advertising-unity.git#1.1.0",
 ```
 dependency `extensions-unity-1.0.3`
 ```csharp
@@ -49,7 +49,7 @@ Install `app-tracking-unity` and add define symbol `VIRTUESKY_TRACKING` if you n
 - Here, select `Ad Network` and enter the ad unit id you want to use, don't forget add `Define Symbol`.
 
 - Add `Scripting Define Symbols` in `Project Settings` > `Player` > `Other Settings`
-    - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_MAX`
+    - Applovin: `VIRTUESKY_ADS` and `VIRTUESKY_APPLOVIN`
     - Admob: `VIRTUESKY_ADS` and `VIRTUESKY_ADMOB`
     - IronSource: `VIRTUESKY_ADS` and `VIRTUESKY_IRONSOURCE`
   
