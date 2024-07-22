@@ -1,10 +1,35 @@
 using System;
 using UnityEngine;
+using VirtueSky.Core;
 
 namespace VirtueSky.Ads
 {
     public static class AdStatic
     {
+#if VIRTUESKY_ADS
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void RuntimeBeforeSceneLoad()
+        {
+            AutoInitialize(CoreEnum.RuntimeAutoInitType.BeforeSceneLoad);
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void RuntimeAfterSceneLoad()
+        {
+            AutoInitialize(CoreEnum.RuntimeAutoInitType.AfterSceneLoad);
+        }
+
+        private static void AutoInitialize(CoreEnum.RuntimeAutoInitType adsRuntimeAutoInitType)
+        {
+            if (AdSettings.Instance == null) return;
+            if (!AdSettings.Instance.RuntimeAutoInit) return;
+            if (AdSettings.Instance.RuntimeAutoInitType != adsRuntimeAutoInitType) return;
+            var ads = new GameObject("Advertising");
+            ads.AddComponent<Advertising>();
+            UnityEngine.Object.DontDestroyOnLoad(ads);
+        }
+
+#endif
         public static bool IsRemoveAd
         {
 #if VIRTUESKY_DATA

@@ -49,7 +49,7 @@ namespace VirtueSky.Ads
             if (adSettings.EnableGDPR)
             {
 #if VIRTUESKY_ADMOB
-                InitGDPR();
+                InitGdpr();
 #endif
             }
             else
@@ -143,9 +143,11 @@ namespace VirtueSky.Ads
         #region Admob GDPR
 
 #if VIRTUESKY_ADMOB
-        private void InitGDPR()
+        private void InitGdpr()
         {
-#if !UNITY_EDITOR
+#if UNITY_EDITOR
+            InitAdClient();
+#else
             string deviceID = SystemInfo.deviceUniqueIdentifier;
             string deviceIDUpperCase = deviceID.ToUpper();
 
@@ -235,20 +237,6 @@ namespace VirtueSky.Ads
 #endif
 
         #endregion
-
-#if VIRTUESKY_ADS
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void AutoInitialize()
-        {
-            if (AdSettings.Instance == null) return;
-            if (AdSettings.Instance.RuntimeAutoInit)
-            {
-                var ads = new GameObject("Advertising");
-                ads.AddComponent<Advertising>();
-                DontDestroyOnLoad(ads);
-            }
-        }
-#endif
 
 
         #region Public API

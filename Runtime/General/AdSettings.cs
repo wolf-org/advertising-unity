@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VirtueSky.Core;
 
 namespace VirtueSky.Ads
 {
@@ -22,6 +23,7 @@ namespace VirtueSky.Ads
         }
 
         [SerializeField] private bool runtimeAutoInit = true;
+        [SerializeField] private CoreEnum.RuntimeAutoInitType runtimeAutoInitType;
         [Range(5, 100), SerializeField] private float adCheckingInterval = 8f;
         [Range(5, 100), SerializeField] private float adLoadingInterval = 15f;
         [SerializeField] private AdNetwork adNetwork = AdNetwork.Max;
@@ -126,6 +128,7 @@ namespace VirtueSky.Ads
 
 
         public bool RuntimeAutoInit => runtimeAutoInit;
+        public CoreEnum.RuntimeAutoInitType RuntimeAutoInitType => runtimeAutoInitType;
         public float AdCheckingInterval => adCheckingInterval;
         public float AdLoadingInterval => adLoadingInterval;
 
