@@ -1,8 +1,8 @@
 {
-  "name": "com.wolf-package.advertising",
+  "name": "com.wolf-org.advertising",
   "displayName": "UnityCommon-ADS",
   "description": "Support show ads for game unity",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "unity": "2021.3",
   "category": "virtuesky",
   "license": "MIT",
@@ -17,6 +17,6 @@
     "Advertising"
   ],
   "dependencies": {
-    "com.wolf-package.extensions": "https://github.com/wolf-package/extensions-unity.git#1.0.4"
+    "com.wolf-org.extensions": "https://github.com/wolf-org/extensions-unity.git#1.0.5"
   }
 }
