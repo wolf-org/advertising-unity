@@ -1,5 +1,5 @@
 using VirtueSky.Core;
-using VirtueSky.Tracking;
+
 
 namespace VirtueSky.Ads
 {
@@ -34,7 +34,7 @@ namespace VirtueSky.Ads
         {
             if (impressionData.revenue != null)
             {
-                AppTracking.TrackRevenue((double)impressionData.revenue, impressionData.adNetwork,
+                VirtueSky.Tracking.AppTracking.TrackRevenue((double)impressionData.revenue, impressionData.adNetwork,
                     impressionData.adUnit,
                     impressionData.placement, AdNetwork.IronSource.ToString());
             }
