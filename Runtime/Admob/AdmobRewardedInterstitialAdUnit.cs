@@ -23,7 +23,7 @@ namespace VirtueSky.Ads
             }
 #if VIRTUESKY_TRACKING
             if (string.IsNullOrEmpty(Id)) return;
-            paidedCallback = VirtueSky.Tracking.AppTracking.TrackRevenue;
+            paidedCallback += VirtueSky.Tracking.AppTracking.TrackRevenue;
 #endif
         }
 

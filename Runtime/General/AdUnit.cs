@@ -6,11 +6,10 @@ namespace VirtueSky.Ads
     [Serializable]
     public abstract class AdUnit
     {
-#if UNITY_ANDROID
+
         [SerializeField] protected string androidId;
-#elif UNITY_IOS
         [SerializeField] protected string iOSId;
-#endif
+
 
         [NonSerialized] internal Action loadedCallback;
         [NonSerialized] internal Action failedToLoadCallback;
